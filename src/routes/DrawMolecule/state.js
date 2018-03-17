@@ -5,7 +5,7 @@ import { drawStructure3d } from 'routes/DrawMolecule/lib/structure3d'
 const { localStorage, WebSocket } = window
 
 const connectWebSocket = () => {
-  const ws = new WebSocket('ws://server.yegg.it/decoder')
+  const ws = new WebSocket('wss://server.yegg.it/decoder')
   ws.onmessage = e => {
     console.log(e.data)
     return false
