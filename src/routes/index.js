@@ -19,7 +19,7 @@ const routes = [
     path: '/draw-molecule',
     route: 'Molecule Drawing',
     component: DrawMolecule,
-    description: 'Draw molecules with bonds and see them in 3d.',
+    description: 'Draw molecules with bonds and see them in 3d. Drag atoms or write their symbol (and wait quite a lot :/)',
   },
 ]
 
