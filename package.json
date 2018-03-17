@@ -14,13 +14,17 @@
   },
   "dependencies": {
     "d3": "^4.13.0",
+    "gl-mat4": "^1.1.4",
     "lodash": "^4.17.5",
-    "mobx": "^4.0.1",
+    "mobx": "^4.1.0",
     "mobx-react": "^5.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "tachyons": "^4.9.1"
+    "tachyons": "^4.9.1",
+    "three": "^0.91.0",
+    "three-trackballcontrols": "^0.0.7",
+    "three.meshline": "^1.0.3"
   }
 }
