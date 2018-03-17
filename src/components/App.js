@@ -5,7 +5,7 @@ import { routes } from 'routes'
 export default class App extends React.Component {
   render() {
     return (
-      <div className="w-100 h-100 min-h-100 flex flex-column items-center">
+      <div className="w-100 h-100 min-h-100 flex flex-column items-center relative">
         <div className="w-80 flex flex-column items-center justify-center pv5">
           <div className="pa3 f1">
             Stuff
@@ -23,6 +23,17 @@ export default class App extends React.Component {
               </div>
             ))
           }
+        </div>
+        <div className="absolute right-2 bottom-2 flex flex-column tc items-center">
+          <div className="flex justify-around w-100">
+            <a href="https://github.com/yeasteregg" target="_blank" rel="noopener noreferrer">
+              <img src="/github.png" width="16" height="16" />
+            </a>
+            <a href="https://www.linkedin.com/in/mattiazziluca/" target="_blank" rel="noopener noreferrer">
+              <img src="/linkedin.png" width="16" height="16" />
+            </a>
+          </div>
+          Luca Mattiazzi
         </div>
       </div>
     )
