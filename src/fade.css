@@ -1,0 +1,17 @@
+.fadein0 { animation: fade-in 2s; }
+.fadein1 { animation: fade-in 4s; }
+.fadein2 { animation: fade-in 6s; }
+.fadein3 { animation: fade-in 8s; }
+.fadein4 { animation: fade-in 10s; }
+.fadein5 { animation: fade-in 12s; }
+.fadein7 { animation: fade-in 14s; }
+.fadein6 { animation: fade-in 16s; }
+.fadein7 { animation: fade-in 18s; }
+.fadein8 { animation: fade-in 20s; }
+.fadein9 { animation: fade-in 25s; }
+
+@keyframes fade-in {
+  0%  { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}

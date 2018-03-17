@@ -1,0 +1,26 @@
+{
+  "name": "playground",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "accurapp-scripts start",
+    "build": "accurapp-scripts build"
+  },
+  "devDependencies": {
+    "accurapp-scripts": "^3.2.10",
+    "eslint-config-accurapp": "^4.0.2",
+    "webpack-preset-accurapp": "^3.1.12"
+  },
+  "dependencies": {
+    "d3": "^4.13.0",
+    "lodash": "^4.17.5",
+    "mobx": "^4.0.1",
+    "mobx-react": "^5.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "tachyons": "^4.9.1"
+  }
+}
