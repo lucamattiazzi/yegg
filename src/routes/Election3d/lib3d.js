@@ -7,7 +7,8 @@ const { requestAnimationFrame } = window
 const ANIMATION_LENGTH = 1000
 const STARTING_Z = 10
 const Z_BUFFER = -20
-const CAMERA_DEFAULT = { x: 0, y: 0, z: STARTING_Z, target: [0, 0, 0] }
+const CAMERA_DEFAULT = [0, 0, STARTING_Z]
+const TARGET_DEFAULT = [0, 0, 0]
 
 export class Drawer3d {
   constructor(scene, camera, canvas, { viewport, ...mapMode }) {
@@ -15,17 +16,15 @@ export class Drawer3d {
     this.scene = scene
     this.canvas = canvas
     this.controls = new TrackballControls(this.camera, this.canvas.domElement)
-    this.controls.target.set(0, 0, 0)
+    this.controls.target.set(...TARGET_DEFAULT)
+    this.camera.position.set(...CAMERA_DEFAULT)
     this.controls.rotateSpeed = 1.0
     this.controls.zoomSpeed = 4
     this.controls.panSpeed = 0.8
     this.controls.noZoom = false
     this.controls.noPan = false
     this.controls.staticMoving = true
-    this.camera.position.x = CAMERA_DEFAULT.x
-    this.camera.position.y = CAMERA_DEFAULT.y
-    this.camera.position.z = CAMERA_DEFAULT.z
-    this.cameraStarting = {}
+    this.starting = {}
     this.cities = []
     this.mapMode = mapMode
     this.viewport = new PerspectiveMercatorViewport(viewport)
@@ -62,12 +61,17 @@ export class Drawer3d {
     const { width, height } = this.getBBox()
     const adapter = this.adaptCityToMap({ width, height })
     const { position } = this.camera
+    const { target } = this.controls
     this.cities.forEach(({ city }) => {
       city.startingPosition = [...city.currentPosition]
       city.finalPosition = adapter(city)
     })
-    console.log(this.camera)
-    this.cameraStarting = { ...position }
+    this.starting = { camera: position, controls: target }
+    this.controls.target.set(...TARGET_DEFAULT)
+    this.controls.reset()
+    this.camera.position.set(...CAMERA_DEFAULT)
+    this.camera.updateProjectionMatrix()
+    this.controls.update()
     this.updateAnimation(true)
   }
 
@@ -83,14 +87,20 @@ export class Drawer3d {
       ]
     })
     this.updateCities()
-    updateCamera && this.updateCamera()
+    // updateCamera && this.updateCamera(part)
     requestAnimationFrame(() => this.updateAnimation(updateCamera))
   }
 
-  updateCamera = () => {
-    console.log(this.cameraStarting)
-    console.log('ciaoooo')
-  }
+  // updateCamera = part => {
+  //   const { camera, controls } = this.starting.camera
+  //   this.camera.position.x = camera.x + part * CAMERA_DEFAULT.x
+  //   this.camera.position.y = camera.y + part * CAMERA_DEFAULT.y
+  //   this.camera.position.z = camera.z + part * CAMERA_DEFAULT.z
+  //   this.camera.updateProjectionMatrix()
+  //   this.controls.target.x = controls.x + part * TARGET_DEFAULT.x
+  //   this.controls.target.y = controls.y + part * TARGET_DEFAULT.y
+  //   this.controls.target.z = controls.z + part * TARGET_DEFAULT.z
+  // }
 
   getBBox = () => {
     const { fov, aspect, position: { z } } = this.camera
@@ -136,11 +146,14 @@ export class Drawer3d {
   generateCitySprite = canvas => {
     const ctx = canvas.getContext('2d')
     return city => {
+      console.log(city)
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.beginPath()
-      ctx.fillStyle = `rgba(${city.color}, ${city.color}, ${city.color}, 0.9)`
+      const color = 100 + Math.ceil(city.color * 155)
+      console.log(color)
+      ctx.fillStyle = `rgba(${color}, 0, 0, 0.9)`
       ctx.strokeStyle = 'rgb(0, 0, 0)'
-      ctx.arc(128, 128, 64, 0, 2 * Math.PI)
+      ctx.arc(128, 128, 50 + 50 * city.population, 0, 2 * Math.PI)
       ctx.stroke()
       ctx.fill()
       const texture = new THREE.Texture(canvas)

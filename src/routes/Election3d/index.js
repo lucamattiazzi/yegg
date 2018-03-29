@@ -71,7 +71,7 @@ export class Election3d extends React.Component {
               mapStyle="mapbox://styles/mapbox/light-v9"
             />
           </div>
-          <div className={`w-100 h-100 absolute ${!mapMode ? '' : 'o-20 pointer-events-none'}`} ref={this.renderCanvasContainer} />
+          <div className={`w-100 h-100 absolute ${!mapMode ? '' : 'o-60 pointer-events-none'}`} ref={this.renderCanvasContainer} />
         </div>
       </div>
     )
