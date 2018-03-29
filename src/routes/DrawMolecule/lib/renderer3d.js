@@ -1,7 +1,6 @@
 import { ATOM_RADIUS_MULTIPLIER_3D } from 'routes/DrawMolecule/constants/index'
 import * as THREE from 'three'
 import { MeshLine, MeshLineMaterial } from 'three.meshline'
-const OPACITY = 0.3
 const DIVISOR = 50
 const BASE_DELTA = 0.15
 const LINE_WIDTH = 0.07
@@ -59,10 +58,10 @@ export const bondDrawer = (scene, canvas, atoms, center, strength) => {
 }
 
 export const ATOM_DRAWERS = {
-  O: drawAtom(`rgba(255, 0, 0, ${OPACITY})`, 'O', 0.66),
-  C: drawAtom(`rgba(0, 0, 255, ${OPACITY})`, 'C', 0.76),
-  H: drawAtom(`rgba(255, 255, 255, ${OPACITY})`, 'H', 0.31),
-  S: drawAtom(`rgba(255, 255, 0, ${OPACITY})`, 'S', 1.05),
-  N: drawAtom(`rgba(127, 127, 127, ${OPACITY})`, 'N', 0.71),
-  P: drawAtom(`rgba(255, 165, 0, ${OPACITY})`, 'P', 1.4),
+  O: drawAtom(`rgb(255, 0, 0)`, 'O', 0.66),
+  C: drawAtom(`rgb(0, 0, 255)`, 'C', 0.76),
+  H: drawAtom(`rgb(255, 255, 255)`, 'H', 0.31),
+  S: drawAtom(`rgb(255, 255, 0)`, 'S', 1.05),
+  N: drawAtom(`rgb(127, 127, 127)`, 'N', 0.71),
+  P: drawAtom(`rgb(255, 165, 0)`, 'P', 1.4),
 }

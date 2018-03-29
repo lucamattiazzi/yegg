@@ -181,15 +181,16 @@ export class Drawer2d {
       !atomFilled(this.startingAtom, this.state.currentBonds) ||
       !atomFilled(this.hoveredEntity, this.state.currentBonds)
     ) return this.resetDrawing()
-    const bond = this.state.currentBonds.find(l => (
-      l.atoms.indexOf(this.startingAtom.uid) !== -1 &&
-      l.atoms.indexOf(this.hoveredEntity.uid) !== -1
-    )) || {
+    const newBond = {
       uid: uuidv4(),
       atoms: [this.startingAtom.uid, this.hoveredEntity.uid],
       strength: 0,
       class: BOND_CLASS,
     }
+    const bond = this.state.currentBonds.find(l => (
+      l.atoms.indexOf(this.startingAtom.uid) !== -1 &&
+      l.atoms.indexOf(this.hoveredEntity.uid) !== -1
+    )) || newBond
     if (bond.strength === 3) {
       return this.resetDrawing()
     }

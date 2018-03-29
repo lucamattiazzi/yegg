@@ -1,7 +1,7 @@
-import { MOUSE_STATES } from 'routes/DrawMolecule/constants/index'
 import { observable, action, reaction, toJS, computed } from 'mobx'
-import { drawStructure2d } from 'routes/DrawMolecule/lib/structure2d'
-import { drawStructure3d } from 'routes/DrawMolecule/lib/structure3d'
+import { MOUSE_STATES } from './constants/index'
+import { drawStructure2d } from './lib/structure2d'
+import { drawStructure3d } from './lib/structure3d'
 const { localStorage, WebSocket } = window
 
 const connectWebSocket = () => {
@@ -156,22 +156,24 @@ class State {
   }
 }
 
-export const state = new State()
+export const createState = () => {
+  const newState = new State()
+  reaction(
+    () => this.a.atoms,
+    atoms => {
+      this.a.saveState()
+      this.a.drawMolecule()
+    },
+    newState
+  )
 
-reaction(
-  () => this.a.atoms,
-  atoms => {
-    this.a.saveState()
-    this.a.drawMolecule()
-  },
-  state
-)
-
-reaction(
-  () => this.a.bonds,
-  bonds => {
-    this.a.saveState()
-    this.a.drawMolecule()
-  },
-  state
-)
+  reaction(
+    () => this.a.bonds,
+    bonds => {
+      this.a.saveState()
+      this.a.drawMolecule()
+    },
+    newState
+  )
+  return newState
+}

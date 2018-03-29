@@ -1,12 +1,12 @@
 import React from 'react'
-import { App } from 'routes/DrawMolecule/containers/App'
 import { Provider } from 'mobx-react'
-import { state } from 'routes/DrawMolecule/state'
+import { App } from './containers/App'
+import { createState } from './state'
 
 export class DrawMolecule extends React.Component {
   render() {
     return (
-      <Provider state={state}>
+      <Provider state={createState()}>
         <App />
       </Provider>
     )

@@ -1,4 +1,4 @@
-html,body {
+html,body,#root {
   height: 100%;
   min-height: 100%;
   font-family: monospace;
@@ -13,3 +13,4 @@ html,body {
 .h-80 { height: 80%; }
 .h-90 { height: 90%; }
 .monospace { font-family: monospace; }
+.pointer-events-none { pointer-events: none; }
