@@ -1,20 +1,22 @@
 import * as THREE from 'three'
 import { PerspectiveMercatorViewport } from 'viewport-mercator-project'
 import TrackballControls from 'three-trackballcontrols'
-import { commaToDecimal } from 'lib/election-stats'
+import { commaToDecimal, tween } from 'lib/election-stats'
 const { requestAnimationFrame } = window
 
 const ANIMATION_LENGTH = 1000
 const STARTING_Z = 10
-const Z_BUFFER = -20
+const Z_BUFFER = -50
 const CAMERA_DEFAULT = [0, 0, STARTING_Z]
 const TARGET_DEFAULT = [0, 0, 0]
+const SPHERE_BASE_SIZE = 0.5
 
 export class Drawer3d {
   constructor(scene, camera, canvas, { viewport, ...mapMode }) {
     this.camera = camera
     this.scene = scene
     this.canvas = canvas
+    this.axes = this.generateAxes
     this.controls = new TrackballControls(this.camera, this.canvas.domElement)
     this.controls.target.set(...TARGET_DEFAULT)
     this.camera.position.set(...CAMERA_DEFAULT)
@@ -29,6 +31,10 @@ export class Drawer3d {
     this.mapMode = mapMode
     this.viewport = new PerspectiveMercatorViewport(viewport)
     this.animate()
+  }
+
+  generateAxes = () => {
+
   }
 
   animate = () => {
@@ -53,6 +59,7 @@ export class Drawer3d {
         city.coords[2] * Z_BUFFER,
       ]
     })
+    this.scene.add(this.axes)
     this.updateAnimation()
   }
 
@@ -66,41 +73,33 @@ export class Drawer3d {
       city.startingPosition = [...city.currentPosition]
       city.finalPosition = adapter(city)
     })
-    this.starting = { camera: position, controls: target }
-    this.controls.target.set(...TARGET_DEFAULT)
-    this.controls.reset()
-    this.camera.position.set(...CAMERA_DEFAULT)
-    this.camera.updateProjectionMatrix()
-    this.controls.update()
+    this.starting = { camera: [position.x, position.y, position.x], target: [target.x, target.y, target.x] }
+    this.scene.remove(this.axes)
     this.updateAnimation(true)
   }
 
   updateAnimation = (updateCamera = false) => {
     const part = (Date.now() - this.startAnimation) / ANIMATION_LENGTH
-    if (part >= 1) return
+    if (part >= 1) return this.update()
     this.cities.forEach(({ city }) => {
       const { startingPosition, finalPosition } = city
-      city.currentPosition = [
-        startingPosition[0] + part * (finalPosition[0] - startingPosition[0]),
-        startingPosition[1] + part * (finalPosition[1] - startingPosition[1]),
-        startingPosition[2] + part * (finalPosition[2] - startingPosition[2]),
-      ]
+      city.currentPosition = tween({ start: startingPosition, end: finalPosition, part })
     })
     this.updateCities()
-    // updateCamera && this.updateCamera(part)
+    updateCamera && this.updateCamera(part)
     requestAnimationFrame(() => this.updateAnimation(updateCamera))
   }
 
-  // updateCamera = part => {
-  //   const { camera, controls } = this.starting.camera
-  //   this.camera.position.x = camera.x + part * CAMERA_DEFAULT.x
-  //   this.camera.position.y = camera.y + part * CAMERA_DEFAULT.y
-  //   this.camera.position.z = camera.z + part * CAMERA_DEFAULT.z
-  //   this.camera.updateProjectionMatrix()
-  //   this.controls.target.x = controls.x + part * TARGET_DEFAULT.x
-  //   this.controls.target.y = controls.y + part * TARGET_DEFAULT.y
-  //   this.controls.target.z = controls.z + part * TARGET_DEFAULT.z
-  // }
+  updateCamera = part => {
+    const { camera, target } = this.starting
+    const targetValue = tween({ start: target, end: TARGET_DEFAULT, part })
+    const cameraValue = tween({ start: camera, end: CAMERA_DEFAULT, part })
+    this.controls.target.set(...targetValue)
+    this.controls.reset()
+    this.camera.position.set(...cameraValue)
+    this.camera.updateProjectionMatrix()
+    this.controls.update()
+  }
 
   getBBox = () => {
     const { fov, aspect, position: { z } } = this.camera
@@ -111,7 +110,7 @@ export class Drawer3d {
   }
 
   update = state => {
-    this.viewport = new PerspectiveMercatorViewport(state)
+    this.viewport = state ? new PerspectiveMercatorViewport(state) : this.viewport
     if (!this.mapMode) return
     this.updateCitiesMap()
     this.updateCities()
@@ -130,54 +129,44 @@ export class Drawer3d {
   updateCitiesMap = () => {
     const { width, height } = this.getBBox()
     const adapter = this.adaptCityToMap({ width, height })
-    this.cities.forEach(({ city }) => { city.currentPosition = adapter(city) })
+    this.cities.forEach(({ city }) => {
+      city.currentPosition = adapter(city)
+      city.scale = SPHERE_BASE_SIZE / Math.sqrt(this.viewport.zoom)
+    })
   }
 
   updateCities = () => {
-    this.cities.forEach(({ object, city }) => object.position.set(...city.currentPosition))
+    this.cities.forEach(({ sphere, outline, city }) => {
+      sphere.position.set(...city.currentPosition)
+      outline.position.set(...city.currentPosition)
+      sphere.scale.set(city.scale, city.scale, city.scale)
+      outline.scale.set(city.scale, city.scale, city.scale).multiplyScalar(1.05)
+    })
   }
 
   draw2d = () => {
-    this.cities.forEach(({ object }) => this.scene.add(object))
+    this.cities.forEach(({ sphere, outline }) => this.scene.add(sphere, outline))
     this.updateCitiesMap()
     this.updateCities()
   }
 
-  generateCitySprite = canvas => {
-    const ctx = canvas.getContext('2d')
-    return city => {
-      console.log(city)
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.beginPath()
-      const color = 100 + Math.ceil(city.color * 155)
-      console.log(color)
-      ctx.fillStyle = `rgba(${color}, 0, 0, 0.9)`
-      ctx.strokeStyle = 'rgb(0, 0, 0)'
-      ctx.arc(128, 128, 50 + 50 * city.population, 0, 2 * Math.PI)
-      ctx.stroke()
-      ctx.fill()
-      const texture = new THREE.Texture(canvas)
-      texture.needsUpdate = true
-      const material = new THREE.SpriteMaterial({ map: texture })
-      return new THREE.Sprite(material)
-    }
-  }
-
   generateCitySphere = city => {
     const color = 100 + Math.ceil(city.color * 155)
-    const geometry = new THREE.SphereBufferGeometry(5 + city.population * 5, 16, 16)
+    const geometry = new THREE.SphereBufferGeometry(1, 16, 16)
     const material = new THREE.MeshBasicMaterial({ color: `rgb(${color}, 100, 100)` })
-    return new THREE.Mesh(geometry, material)
+    const sphere = new THREE.Mesh(geometry, material)
+    const outlineMaterial = new THREE.MeshBasicMaterial({ color: 0x0000ff, side: THREE.BackSide })
+    const outline = new THREE.Mesh(geometry, outlineMaterial)
+    outline.position.set(sphere.position)
+    outline.scale.multiplyScalar(1.05)
+    return { sphere, outline }
   }
 
   addCities = cities => {
-    const canvas = document.createElement('canvas')
-    canvas.width = 256
-    canvas.height = 256
-    const cityGenerator = this.generateCitySprite(canvas)
     this.cities = cities.map(city => {
-      const object = cityGenerator(city)
-      return { object, city }
+      const { sphere, outline } = this.generateCitySphere(city)
+      city.scale = 1
+      return { sphere, outline, city }
     })
   }
 }

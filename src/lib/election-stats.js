@@ -40,3 +40,11 @@ export const decorateCities = cities => {
 export const commaToDecimal = n => Number(n.replace(',', '.'))
 
 export const MAPBOX_TOKEN = 'pk.eyJ1IjoieWVhc3RlcmVnZyIsImEiOiJjamY5dTY2bGwxbzhjMnhtbWtuOWF5a2k1In0.QVys4EgiR2BCfvabF5wVsg'
+
+export const tween = ({ start, end, part }) => {
+  return [
+    start[0] + part * (end[0] - start[0]),
+    start[1] + part * (end[1] - start[1]),
+    start[2] + part * (end[2] - start[2]),
+  ]
+}

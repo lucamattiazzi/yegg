@@ -52,7 +52,7 @@ export class Election2d extends React.Component {
     return (
       <div className="w-100 h-100 flex flex-column justify-end">
         <div className="w-100 h-20 flex justify-center items-center">
-          <input type="submit" value="Switch!" onClick={this.switchMode} />
+          <input type="submit" value="Maronn!" onClick={this.switchMode} />
         </div>
         <div className="w-100 h-80 relative" ref={this.renderContainer} onMouseMove={this.onMouseMove}>
           <div className={`w-100 h-100 absolute ${mapMode ? '' : 'o-20 pointer-events-none'}`}>
@@ -60,7 +60,7 @@ export class Election2d extends React.Component {
               {...this.state}
               onViewportChange={this.handleViewportChange}
               mapboxApiAccessToken={MAPBOX_TOKEN}
-              mapStyle="mapbox://styles/mapbox/light-v9"
+              mapStyle="mapbox://styles/mapbox/dark-v9"
             />
           </div>
           <canvas width={width} height={height} ref={this.renderCanvas} className="w-100 h-100 absolute pointer-events-none" />

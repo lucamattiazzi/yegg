@@ -11,7 +11,7 @@ export default class App extends React.Component {
             Stuff
           </div>
           <div className="pa3 f4">
-            Some stuff. Not much style, not much stability, mostly out of curiosity.
+            Currenlty interested in n-dimensional stuff.
           </div>
         </div>
         <div className="w-80 flex flex-column pv3">
@@ -29,9 +29,9 @@ export default class App extends React.Component {
             <a href="https://github.com/yeasteregg" target="_blank" rel="noopener noreferrer">
               <img src="/github.png" width="16" height="16" />
             </a>
-            <a href="https://www.linkedin.com/in/mattiazziluca/" target="_blank" rel="noopener noreferrer">
+            {/* <a href="https://www.linkedin.com/in/mattiazziluca/" target="_blank" rel="noopener noreferrer">
               <img src="/linkedin.png" width="16" height="16" />
-            </a>
+            </a> */}
           </div>
           Luca Mattiazzi
         </div>

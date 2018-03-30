@@ -11,7 +11,7 @@ export class Election3d extends React.Component {
     latitude: 41,
     longitude: 12,
     zoom: 5,
-    minPop: 100000,
+    minPop: 10000,
     mapMode: true,
   }
 
@@ -27,6 +27,7 @@ export class Election3d extends React.Component {
     const decoratedCities = decorateCities(filteredCities)
     this.renderer.addCities(decoratedCities)
     this.renderer.draw2d()
+    this.setState({ loading: false })
   }
 
   updateRenderer = () => this.renderer.update(this.state)
@@ -40,10 +41,15 @@ export class Election3d extends React.Component {
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000)
     const canvas = new THREE.WebGLRenderer({ alpha: true })
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+    // directionalLight.position = [0, -1, 0]
+    scene.add(directionalLight)
     canvas.setSize(width, height)
     container.appendChild(canvas.domElement)
     this.renderer = new Drawer3d(scene, camera, canvas, this.state)
-    await this.retrieveData()
+    this.setState({ loading: true }, async () => {
+      await this.retrieveData()
+    })
   }
 
   renderContainer = container => {
@@ -60,7 +66,7 @@ export class Election3d extends React.Component {
     return (
       <div className="w-100 h-100 flex flex-column justify-end">
         <div className="w-100 h-20 flex justify-center items-center">
-          <input type="submit" value="Switch!" onClick={this.switchMode} />
+          <input type="submit" value="Maronn!" onClick={this.switchMode} />
         </div>
         <div className="w-100 h-80 relative" ref={this.renderContainer}>
           <div className={`w-100 h-100 absolute ${mapMode ? '' : 'o-20 pointer-events-none'}`}>
@@ -68,7 +74,7 @@ export class Election3d extends React.Component {
               {...this.state}
               onViewportChange={this.handleViewportChange}
               mapboxApiAccessToken={MAPBOX_TOKEN}
-              mapStyle="mapbox://styles/mapbox/light-v9"
+              mapStyle="mapbox://styles/mapbox/dark-v9"
             />
           </div>
           <div className={`w-100 h-100 absolute ${!mapMode ? '' : 'o-60 pointer-events-none'}`} ref={this.renderCanvasContainer} />
