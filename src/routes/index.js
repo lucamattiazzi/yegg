@@ -4,7 +4,7 @@ import { DrawMolecule } from 'routes/DrawMolecule'
 import { Pca2d } from 'routes/Pca2d'
 import { Election2d } from 'routes/Election2d'
 import { Election3d } from 'routes/Election3d'
-import { Election4d } from 'routes/Election4d'
+import { CutMap } from 'routes/CutMap'
 
 const routes = [
   {
@@ -44,10 +44,10 @@ const routes = [
     description: 'Election data plotted from n-dimensionality(where n is party number) to 3. Color represents distance from total.',
   },
   {
-    path: '/election-4d',
-    route: 'Election PCA4d',
-    component: Election4d,
-    description: 'Election data plotted from n-dimensionality(where n is party number) to 4. Color represents distance from total.',
+    path: '/cut-map',
+    route: 'Cut Map',
+    component: CutMap,
+    description: 'Cut the map',
   },
 ]
 
