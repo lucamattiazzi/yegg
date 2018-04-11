@@ -1,5 +1,5 @@
 import { regress } from './stats'
-import { player } from './player'
+import { notesPlayer, equationPlayer, KEYS } from './player'
 
 const { localStorage } = window
 const LINES = Array.from({ length: 5 }, (_, idx) => idx)
@@ -22,6 +22,7 @@ export class MusicSheet {
       return [[x0, y0], [x1, y1]]
     })
     this.canvas.addEventListener('click', this.clickHandler)
+    this.equationPlayer = equationPlayer(this.canvas)
     this.draw()
   }
 
@@ -30,17 +31,20 @@ export class MusicSheet {
       e.pageX - this.canvas.offsetLeft,
       e.pageY - this.canvas.offsetTop,
     ]
-    const overlappedLine = this.linesPosition.find(line => {
+    const lineIdx = this.linesPosition.findIndex(line => {
       const y0 = line[0][1]
       const distance = Math.abs(point[1] - y0 / 2)
       return distance <= DOT_RADIUS
     })
-    if (!overlappedLine) return
-    const linePoint = [
-      point[0] * 2,
-      overlappedLine[0][1],
-    ]
-    this.points.push(linePoint)
+    if (lineIdx === -1) return
+    const note = {
+      coordinates: [
+        point[0] * 2,
+        this.linesPosition[lineIdx][0][1],
+      ],
+      key: KEYS[4 - lineIdx],
+    }
+    this.points.push(note)
     this.draw()
   }
 
@@ -65,9 +69,9 @@ export class MusicSheet {
   }
 
   drawPoints = () => {
-    this.points.forEach(point => {
+    this.points.forEach(({ coordinates }) => {
       this.ctx.beginPath()
-      this.ctx.arc(point[0], point[1], DOT_RADIUS, 0, 2 * Math.PI, false)
+      this.ctx.arc(coordinates[0], coordinates[1], DOT_RADIUS, 0, 2 * Math.PI, false)
       this.ctx.fillStyle = '#cccccc'
       this.ctx.fill()
       this.ctx.lineWidth = 1
@@ -78,7 +82,7 @@ export class MusicSheet {
 
   drawRegression = () => {
     if (this.points.length < 2) return
-    this.transformer = regress(this.points)
+    this.transformer = regress(this.points.map(p => p.coordinates))
     this.ctx.beginPath()
     this.ctx.lineWidth = LINE_WIDTH / 2
     this.ctx.strokeStyle = '#cccccc'
@@ -99,7 +103,11 @@ export class MusicSheet {
     this.draw()
   }
 
-  play = () => {
-    player(this.transformer)
+  playNotes = async () => {
+    await notesPlayer(this.points)
+  }
+
+  playRegression = async () => {
+    await this.equationPlayer(this.transformer)
   }
 }

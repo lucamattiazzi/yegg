@@ -23,7 +23,9 @@ export class MusicRegression extends React.Component {
 
   reset = () => this.sheet.reset()
 
-  play = () => this.sheet.play()
+  playNotes = async () => { await this.sheet.playNotes() }
+
+  playRegression = async () => { await this.sheet.playRegression() }
 
   render() {
     const { width, height } = this.state
@@ -31,9 +33,10 @@ export class MusicRegression extends React.Component {
     return (
       <div className="w-100 h-100 flex items-center justify-center relative" ref={this.renderContainer}>
         <div className="absolute flex top-1 justify-center">
-          <div className="ph2 ba b--black" onClick={this.save}>Save</div>
-          <div className="ph2 ba b--black" onClick={this.reset}>Reset</div>
-          <div className="ph2 ba b--black" onClick={this.play}>Play</div>
+          <div className="pa2 ba b--black mh2 pointer" onClick={this.save}>Save</div>
+          <div className="pa2 ba b--black mh2 pointer" onClick={this.reset}>Reset</div>
+          <div className="pa2 ba b--black mh2 pointer" onClick={this.playNotes}>Play Notes</div>
+          <div className="pa2 ba b--black mh2 pointer" onClick={this.playRegression}>Play Regression</div>
         </div>
         <canvas
           ref={this.renderCanvas}
