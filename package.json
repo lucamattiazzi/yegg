@@ -25,6 +25,7 @@
     "react-map-gl": "^3.2.5",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "regression": "1.4.0",
     "tachyons": "^4.9.1",
     "three": "^0.91.0",
     "three-onevent": "^1.1.2",

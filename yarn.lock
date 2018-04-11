@@ -6320,6 +6320,10 @@ regjsparser@^0.1.4:
   dependencies:
     jsesc "~0.5.0"
 
+regression@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/regression/-/regression-1.4.0.tgz#d3468f9fbada1c70161df31f6c64301677ac5a70"
+
 relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"

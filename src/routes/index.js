@@ -5,6 +5,7 @@ import { Pca2d } from 'routes/Pca2d'
 import { Election2d } from 'routes/Election2d'
 import { Election3d } from 'routes/Election3d'
 import { CutMap } from 'routes/CutMap'
+import { MusicRegression } from 'routes/MusicRegression'
 
 const routes = [
   {
@@ -48,6 +49,12 @@ const routes = [
     route: 'Cut Map',
     component: CutMap,
     description: 'Cut the map',
+  },
+  {
+    path: '/music-regression',
+    route: 'Music Regression',
+    component: MusicRegression,
+    description: 'Music Regression',
   },
 ]
 
