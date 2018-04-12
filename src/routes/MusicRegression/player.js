@@ -18,17 +18,17 @@ export const notesPlayer = async data => {
   }
 }
 
-export const equationPlayer = ({ width, height }) => async fn => {
+export const equationPlayer = ({ width, height }, yToNote, drawer) => async fn => {
   const notes = 500
   synth.triggerAttack('C4')
   for (let i = 0; i < notes; i++) {
     const ms = 10
     await wait(ms)
-    const idx = i * width / notes
-    const mirroredFrequency = fn(idx)
+    const x = i * width / notes
+    drawer(x)
+    const mirroredFrequency = fn(x)
     const frequency = height / 2 + (height / 2 - mirroredFrequency)
-    console.log(mirroredFrequency, frequency)
-    synth.setNote(frequency)
+    synth.setNote(yToNote(frequency))
   }
   synth.triggerRelease()
 }

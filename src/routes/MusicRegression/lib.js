@@ -1,4 +1,4 @@
-import { regress } from './stats'
+import { regress, regressNotes } from './stats'
 import { notesPlayer, equationPlayer, KEYS } from './player'
 
 const { localStorage } = window
@@ -22,7 +22,14 @@ export class MusicSheet {
       return [[x0, y0], [x1, y1]]
     })
     this.canvas.addEventListener('click', this.clickHandler)
-    this.equationPlayer = equationPlayer(this.canvas)
+    const yToNote = regressNotes(this.linesPosition)
+    this.equationPlayer = equationPlayer(this.canvas, yToNote, this.setVerticalLine)
+    this.verticalX = 0
+    this.draw()
+  }
+
+  setVerticalLine = x => {
+    this.verticalX = x
     this.draw()
   }
 
@@ -53,6 +60,7 @@ export class MusicSheet {
     this.drawLines()
     this.drawPoints()
     this.drawRegression()
+    this.drawVerticalLine()
   }
 
   clear = () => { this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height) }
@@ -91,6 +99,17 @@ export class MusicSheet {
         ? this.ctx.moveTo(i, this.transformer(i))
         : this.ctx.lineTo(i, this.transformer(i))
     }
+    this.ctx.stroke()
+  }
+
+  drawVerticalLine = () => {
+    this.ctx.beginPath()
+    this.ctx.lineWidth = LINE_WIDTH
+    this.ctx.strokeStyle = '#cccccc'
+    const y0 = this.linesPosition[0][0][1]
+    const y1 = this.linesPosition.slice(-1)[0][0][1]
+    this.ctx.moveTo(this.verticalX, y0)
+    this.ctx.lineTo(this.verticalX, y1)
     this.ctx.stroke()
   }
 
