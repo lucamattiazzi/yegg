@@ -13,8 +13,10 @@
     "webpack-preset-accurapp": "^3.1.12"
   },
   "dependencies": {
+    "alphabet": "^1.0.0",
     "d3": "^5.0.0",
     "d3-geo-projection": "^2.4.0",
+    "fast-levenshtein": "^2.0.6",
     "gl-mat4": "^1.1.4",
     "lodash": "^4.17.5",
     "mathjs": "^4.0.1",
@@ -26,6 +28,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "regression": "1.4.0",
+    "stats-lite": "^2.1.0",
     "tachyons": "^4.9.1",
     "three": "^0.91.0",
     "three-onevent": "^1.1.2",
