@@ -1,9 +1,9 @@
 const levDist = require('fast-levenshtein')
-const stats = require('stats-lite')
+const statCalc = require('stats-lite')
 const { sortBy, map, uniq } = require('lodash')
 const { lower } = require('alphabet')
 
-const CHARACTER_SET = [...lower, ' ']
+export const CHARACTER_SET = [...lower, ' ']
 const randomLetter = () => CHARACTER_SET[Math.floor(Math.random() * CHARACTER_SET.length)]
 const randomString = length => () => Array.from({ length }, randomLetter).join('')
 
@@ -57,31 +57,32 @@ export class GeneticGenerator {
   }
 
   checkIfOver = () => {
-    if (this.allDistances.length < this.convergedLimit) return false
-    const allLastBests = map(this.allDistances.slice(-this.convergedLimit), l => l[0].dist)
+    if (this.allGenerations.length < this.convergedLimit) return false
+    const allLastBests = map(this.allGenerations.slice(-this.convergedLimit), l => l[0].dist)
     return uniq(allLastBests).length === 1
   }
 
   getStats = () => {
-    const lastDistance = this.allDistances.slice(-1)[0]
+    const lastDistance = map(this.allGenerations.slice(-1)[0], 'dist')
     return [
-      { name: 'mean', value: stats.mean(lastDistance) },
-      { name: 'median', value: stats.median(lastDistance) },
-      { name: 'mode', value: stats.mode(lastDistance) },
-      { name: 'stdev', value: stats.stdev(lastDistance) },
+      { name: 'iterations', value: this.allGenerations.length },
+      { name: 'mean', value: statCalc.mean(lastDistance) },
+      { name: 'median', value: statCalc.median(lastDistance) },
+      { name: 'mode', value: statCalc.mode(lastDistance) },
+      { name: 'stdev', value: statCalc.stdev(lastDistance) },
       { name: 'best', value: this.currentGeneration[0].string },
     ]
   }
 
   runUntilConvergence = () => {
-    this.allDistances = [map(this.currentGeneration, 'dist')]
+    this.allGenerations = [this.currentGeneration]
     while (true) {
       this.generateNewLineage()
-      const distances = map(this.currentGeneration, 'dist')
-      this.allDistances.push(distances)
-      console.log(distances)
+      this.allGenerations.push(this.currentGeneration)
       if (this.checkIfOver()) break
     }
-    return this.getStats()
+    const stats = this.getStats()
+    const iterations = this.allGenerations
+    return { stats, iterations }
   }
 }
