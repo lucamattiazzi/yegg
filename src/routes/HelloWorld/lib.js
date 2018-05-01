@@ -2,17 +2,19 @@ const levDist = require('fast-levenshtein')
 const statCalc = require('stats-lite')
 const { sortBy, map, uniq } = require('lodash')
 const { lower } = require('alphabet')
+const POINT_RADIUS = 5
 
 export const CHARACTER_SET = [...lower, ' ']
 const randomLetter = () => CHARACTER_SET[Math.floor(Math.random() * CHARACTER_SET.length)]
 const randomString = length => () => Array.from({ length }, randomLetter).join('')
 
 export class GeneticGenerator {
-  constructor({ seedNumber, mutationRate, goal, convergedLimit }) {
+  constructor({ seedNumber, mutationRate, goal, convergedLimit, canvases }) {
     this.seedNumber = seedNumber
     this.mutationRate = mutationRate
     this.goal = goal
     this.convergedLimit = convergedLimit
+    this.canvases = canvases
     this.currentGeneration = this.generateSeeds()
   }
 
@@ -29,7 +31,7 @@ export class GeneticGenerator {
     return bestCouples
   }
 
-  generateSeeds() {
+  generateSeeds = () => {
     const strings = Array.from({ length: this.seedNumber }, randomString(this.goal.length))
     const seeds = strings.map(string => {
       const dist = levDist.get(this.goal, string)
@@ -74,6 +76,33 @@ export class GeneticGenerator {
     ]
   }
 
+  plotIterations = () => {
+    const { canvases: { mean, best } } = this
+    const { width, height } = mean.canvas
+    mean.ctx.clearRect(0, 0, width, height)
+    best.ctx.clearRect(0, 0, width, height)
+    const actualWidth = width - POINT_RADIUS * 2
+    const actualHeight = height - POINT_RADIUS * 2
+    const columnWidth = actualWidth / this.allGenerations.length
+    const columnHeightUnit = actualHeight / this.goal.length
+    for (let i = 0; i < this.allGenerations.length; i++) {
+      const generation = this.allGenerations[i]
+      const generationDist = map(generation, 'dist')
+      const meanDist = statCalc.mean(generationDist)
+      const bestDist = generationDist[0]
+      const xMean = POINT_RADIUS + columnWidth * i
+      const yMean = height - (POINT_RADIUS + columnHeightUnit * meanDist)
+      const xBest = POINT_RADIUS + columnWidth * i
+      const yBest = height - (POINT_RADIUS + columnHeightUnit * bestDist)
+      mean.ctx.beginPath()
+      mean.ctx.arc(xMean, yMean, POINT_RADIUS, 0, 2 * Math.PI)
+      mean.ctx.stroke()
+      best.ctx.beginPath()
+      best.ctx.arc(xBest, yBest, POINT_RADIUS, 0, 2 * Math.PI)
+      best.ctx.stroke()
+    }
+  }
+
   runUntilConvergence = () => {
     this.allGenerations = [this.currentGeneration]
     while (true) {
@@ -82,7 +111,7 @@ export class GeneticGenerator {
       if (this.checkIfOver()) break
     }
     const stats = this.getStats()
-    const iterations = this.allGenerations
-    return { stats, iterations }
+    this.plotIterations()
+    return { stats }
   }
 }

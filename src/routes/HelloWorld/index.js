@@ -1,26 +1,29 @@
 import React from 'react'
+import { Canvases } from './Canvases'
+import { Stats } from './Stats'
 import { GeneticGenerator, CHARACTER_SET } from './lib'
 
 export class HelloWorld extends React.Component {
   state = {
     stats: [],
-    iterations: [],
-    seedNumber: 40,
+    seedNumber: 60,
     mutationRate: 0.1,
-    convergedLimit: 10,
+    convergedLimit: 50,
     goal: 'hello world',
     generated: false,
   }
 
+  canvases = {}
+
   generate = () => {
-    const { seedNumber, mutationRate, goal, convergedLimit } = this.state
-    this.generator = new GeneticGenerator({ seedNumber, mutationRate, goal, convergedLimit })
+    const { canvases, state: { seedNumber, mutationRate, goal, convergedLimit } } = this
+    this.generator = new GeneticGenerator({ seedNumber, mutationRate, goal, convergedLimit, canvases })
     this.setState({ generated: true }, this.start)
   }
 
   start = () => {
-    const { stats, iterations } = this.generator.runUntilConvergence()
-    this.setState({ stats, generated: false, iterations })
+    const { stats } = this.generator.runUntilConvergence()
+    this.setState({ stats, generated: false })
   }
 
   setValue = key => e => this.setState({ [key]: e.target.value })
@@ -51,6 +54,8 @@ export class HelloWorld extends React.Component {
     />
   )
 
+  setCanvases = canvases => { this.canvases = canvases }
+
   mutationRateInput = () => this.numericInput({ min: 0, max: 1, step: 0.01, name: 'mutationRate' })
 
   seedInput = () => this.numericInput({ min: 0, max: 400, step: 4, name: 'seedNumber' })
@@ -78,13 +83,8 @@ export class HelloWorld extends React.Component {
           { this.renderInput(this.goalInput, 'Goal') }
           <input className="ph3 pv2" type="button" value="Generate" onClick={this.generate} />
         </div>
-        <div className="flex flex-column w-100 flex-auto">
-          {
-            stats.map(({ name, value }, idx) => {
-              return <div key={idx}>{name} - {value}</div>
-            })
-          }
-        </div>
+        <Stats stats={stats} />
+        <Canvases setCanvases={this.setCanvases} />
       </div>
     )
   }

@@ -8,10 +8,10 @@ export default class App extends React.Component {
       <div className="w-100 h-100 min-h-100 flex flex-column items-center relative">
         <div className="w-80 flex flex-column items-center justify-center pv5">
           <div className="pa3 f1">
-            Stuff
+            Yegg
           </div>
           <div className="pa3 f4">
-            Currenlty interested in n-dimensional stuff.
+            {'Some stuff I\'m playing with.'}
           </div>
         </div>
         <div className="w-80 flex flex-column pv3">
