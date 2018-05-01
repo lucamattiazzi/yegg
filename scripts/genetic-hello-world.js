@@ -1,25 +1,55 @@
+const fs = require('fs')
 const levDist = require('fast-levenshtein')
 const statCalc = require('stats-lite')
 const { sortBy, map, uniq } = require('lodash')
 const { lower } = require('alphabet')
-const POINT_RADIUS = 5
 
-export const CHARACTER_SET = [...lower, ' ']
+const CHARACTER_SET = [...lower, ' ']
+const CONVERGED_LIMIT = 100
+const KEY_ITERATIONS = 10
 const randomLetter = () => CHARACTER_SET[Math.floor(Math.random() * CHARACTER_SET.length)]
 const randomString = length => () => Array.from({ length }, randomLetter).join('')
 
-export class GeneticGenerator {
-  constructor({ seedNumber, survivalRate, mutationRate, goal, convergedLimit, canvases }) {
+const stream = fs.createWriteStream('./genetic-hello-world-results.json', { flags: 'a' })
+
+const SEEDS = [
+  Array.from({ length: KEY_ITERATIONS }, (_, idx) => ({ key: 'seedNumber', value: 10 + idx * 5 })),
+  Array.from({ length: KEY_ITERATIONS }, (_, idx) => ({ key: 'survivalRate', value: 0.1 + idx * (1 - 0.1) / (KEY_ITERATIONS - 1) })),
+  Array.from({ length: KEY_ITERATIONS }, (_, idx) => ({ key: 'mutationRate', value: 0.01 + idx * (1 - 0.01) / (KEY_ITERATIONS - 1) })),
+  Array.from({ length: KEY_ITERATIONS }, (_, idx) => ({ key: 'goal', value: randomString(idx + 5)() })),
+]
+
+const cartesianProd = array => {
+  const output = []
+  let jdx
+  if (!array || array.length === 0) return array
+
+  const firstRow = array.splice(0, 1)[0]
+  const newArray = cartesianProd(array)
+  for (let idx = 0; idx < firstRow.length; idx++) {
+    if (newArray && newArray.length !== 0) {
+      for (jdx = 0; jdx < newArray.length; jdx++) {
+        output.push([firstRow[idx]].concat(newArray[jdx]))
+      }
+    } else {
+      output.push([firstRow[idx]])
+    }
+  }
+  return output
+}
+
+const allPermutations = cartesianProd(SEEDS)
+
+class GeneticGenerator {
+  constructor({ seedNumber, survivalRate, mutationRate, goal }) {
     this.seedNumber = seedNumber
     this.mutationRate = mutationRate
     this.survivalRate = survivalRate
     this.goal = goal
-    this.convergedLimit = convergedLimit
-    this.canvases = canvases
     this.currentGeneration = this.generateSeeds()
   }
 
-  coupler = group => {
+  coupler(group) {
     const bestCouples = group.map(first => {
       const furthest = group.reduce((acc, second) => {
         const dist = levDist.get(first.string, second.string)
@@ -32,7 +62,7 @@ export class GeneticGenerator {
     return bestCouples
   }
 
-  generateSeeds = () => {
+  generateSeeds() {
     const strings = Array.from({ length: this.seedNumber }, randomString(this.goal.length))
     const seeds = strings.map(string => {
       const dist = levDist.get(this.goal, string)
@@ -41,7 +71,7 @@ export class GeneticGenerator {
     return sortBy(seeds, 'dist')
   }
 
-  generateNewLineage = () => {
+  generateNewLineage() {
     const best = this.currentGeneration.slice(0, Math.round(this.survivalRate * this.currentGeneration.length))
     const remaining = this.currentGeneration.length - best.length
     const coupled = this.coupler(best)
@@ -61,13 +91,13 @@ export class GeneticGenerator {
     this.currentGeneration = sortBy(newGeneration, 'dist')
   }
 
-  checkIfOver = () => {
-    if (this.allGenerations.length < this.convergedLimit) return false
-    const allLastBests = map(this.allGenerations.slice(-this.convergedLimit), l => l[0].dist)
+  checkIfOver() {
+    if (this.allGenerations.length < CONVERGED_LIMIT) return false
+    const allLastBests = map(this.allGenerations.slice(-CONVERGED_LIMIT), l => l[0].dist)
     return uniq(allLastBests).length === 1
   }
 
-  getStats = () => {
+  getStats() {
     const lastDistance = map(this.allGenerations.slice(-1)[0], 'dist')
     return [
       { name: 'iterations', value: this.allGenerations.length },
@@ -79,34 +109,7 @@ export class GeneticGenerator {
     ]
   }
 
-  plotIterations = () => {
-    const { canvases: { mean, best } } = this
-    const { width, height } = mean.canvas
-    mean.ctx.clearRect(0, 0, width, height)
-    best.ctx.clearRect(0, 0, width, height)
-    const actualWidth = width - POINT_RADIUS * 2
-    const actualHeight = height - POINT_RADIUS * 2
-    const columnWidth = actualWidth / this.allGenerations.length
-    const columnHeightUnit = actualHeight / this.goal.length
-    for (let i = 0; i < this.allGenerations.length; i++) {
-      const generation = this.allGenerations[i]
-      const generationDist = map(generation, 'dist')
-      const meanDist = statCalc.mean(generationDist)
-      const bestDist = generationDist[0]
-      const xMean = POINT_RADIUS + columnWidth * i
-      const yMean = height - (POINT_RADIUS + columnHeightUnit * meanDist)
-      const xBest = POINT_RADIUS + columnWidth * i
-      const yBest = height - (POINT_RADIUS + columnHeightUnit * bestDist)
-      mean.ctx.beginPath()
-      mean.ctx.arc(xMean, yMean, POINT_RADIUS, 0, 2 * Math.PI)
-      mean.ctx.stroke()
-      best.ctx.beginPath()
-      best.ctx.arc(xBest, yBest, POINT_RADIUS, 0, 2 * Math.PI)
-      best.ctx.stroke()
-    }
-  }
-
-  runUntilConvergence = () => {
+  runUntilConvergence() {
     this.allGenerations = [this.currentGeneration]
     while (true) {
       this.generateNewLineage()
@@ -114,7 +117,21 @@ export class GeneticGenerator {
       if (this.checkIfOver()) break
     }
     const stats = this.getStats()
-    this.plotIterations()
     return { stats }
   }
 }
+
+const run = () => {
+  allPermutations.forEach((env, idx) => {
+    if (idx % 100 === 0) { console.log(`${idx} / ${allPermutations.length}`) }
+    const params = env.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {})
+    const gg = new GeneticGenerator(params)
+    const { stats } = gg.runUntilConvergence()
+    const objectStats = stats.reduce((acc, { name, value }) => ({ ...acc, [name]: value }), {})
+    const results = { ...objectStats, ...params }
+    stream.write(`${JSON.stringify(results)}\n`)
+  })
+  stream.end()
+}
+
+run()

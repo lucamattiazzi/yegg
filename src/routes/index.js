@@ -31,7 +31,7 @@ const routes = [
     path: '/pca2d',
     route: 'PCA 2d',
     component: Pca2d,
-    description: 'Do you grok PCA? Me neither!',
+    description: 'Trying to grok PCA.',
   },
   {
     path: '/election-2d',
@@ -49,13 +49,13 @@ const routes = [
     path: '/cut-map',
     route: 'Cut Map',
     component: CutMap,
-    description: 'Cut the map',
+    description: 'Trying to grok how a map is cut in some projections.',
   },
   {
     path: '/music-regression',
     route: 'Music Regression',
     component: MusicRegression,
-    description: 'Music Regression',
+    description: 'Using regression to play notes.',
   },
   {
     path: '/hello-world',

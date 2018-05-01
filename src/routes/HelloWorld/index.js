@@ -9,6 +9,7 @@ export class HelloWorld extends React.Component {
     seedNumber: 60,
     mutationRate: 0.1,
     convergedLimit: 50,
+    survivalRate: 0.5,
     goal: 'hello world',
     generated: false,
   }
@@ -16,8 +17,8 @@ export class HelloWorld extends React.Component {
   canvases = {}
 
   generate = () => {
-    const { canvases, state: { seedNumber, mutationRate, goal, convergedLimit } } = this
-    this.generator = new GeneticGenerator({ seedNumber, mutationRate, goal, convergedLimit, canvases })
+    const { canvases, state: { seedNumber, mutationRate, goal, convergedLimit, survivalRate } } = this
+    this.generator = new GeneticGenerator({ survivalRate, seedNumber, mutationRate, goal, convergedLimit, canvases })
     this.setState({ generated: true }, this.start)
   }
 
@@ -62,6 +63,8 @@ export class HelloWorld extends React.Component {
 
   convergedLimitInput = () => this.numericInput({ min: 0, max: 100, step: 1, name: 'convergedLimit' })
 
+  survivalRateInput = () => this.numericInput({ min: 0, max: 1, step: 0.01, name: 'survivalRate' })
+
   goalInput = () => (
     <input
       disabled={this.state.generated}
@@ -79,6 +82,7 @@ export class HelloWorld extends React.Component {
         <div className="w-100 flex pv3 justify-between bb b--black">
           { this.renderInput(this.mutationRateInput, 'Mutation Rate') }
           { this.renderInput(this.seedInput, 'Seeds') }
+          { this.renderInput(this.survivalRateInput, 'survivalRate') }
           { this.renderInput(this.convergedLimitInput, 'Converged Limit') }
           { this.renderInput(this.goalInput, 'Goal') }
           <input className="ph3 pv2" type="button" value="Generate" onClick={this.generate} />
