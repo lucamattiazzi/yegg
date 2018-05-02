@@ -6,7 +6,7 @@ const { lower } = require('alphabet')
 
 const CHARACTER_SET = [...lower, ' ']
 const CONVERGED_LIMIT = 100
-const KEY_ITERATIONS = 10
+const KEY_ITERATIONS = 20
 const randomLetter = () => CHARACTER_SET[Math.floor(Math.random() * CHARACTER_SET.length)]
 const randomString = length => () => Array.from({ length }, randomLetter).join('')
 

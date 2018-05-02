@@ -7,6 +7,7 @@ import { Election3d } from 'routes/Election3d'
 import { CutMap } from 'routes/CutMap'
 import { MusicRegression } from 'routes/MusicRegression'
 import { HelloWorld } from 'routes/HelloWorld'
+import { HelloWorldData } from 'routes/HelloWorldData'
 
 const routes = [
   {
@@ -62,6 +63,12 @@ const routes = [
     route: 'Hello World',
     component: HelloWorld,
     description: 'Hello world genetic generator',
+  },
+  {
+    path: '/hello-world-data',
+    route: 'Hello World Data',
+    component: HelloWorldData,
+    description: 'Hello world genetic generator data from ~100000 iterations',
   },
 ]
 
