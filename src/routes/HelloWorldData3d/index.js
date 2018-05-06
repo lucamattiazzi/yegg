@@ -30,6 +30,7 @@ export class HelloWorldData3d extends React.Component {
     const height = div.offsetHeight
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000)
+    // const camera = new THREE.OrthographicCamera(width / -2, width / 2, height / 2, height / -2, 0.1, 10000)
     const canvas = new THREE.WebGLRenderer({ alpha: true })
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
     // directionalLight.position = [0, -1, 0]
@@ -41,7 +42,8 @@ export class HelloWorldData3d extends React.Component {
 
   updateCanvas() {
     const { xAxys, yAxys, zAxys, color, data } = this.state
-    this.renderer.updateValues({ xAxys, yAxys, zAxys, color, data })
+    const { setScale } = this
+    this.renderer.updateValues({ xAxys, yAxys, zAxys, color, data, setScale })
   }
 
   setValue = k => e => this.setState({ [k]: e.target.value }, this.updateCanvas)
