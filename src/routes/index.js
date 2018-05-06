@@ -8,6 +8,7 @@ import { CutMap } from 'routes/CutMap'
 import { MusicRegression } from 'routes/MusicRegression'
 import { HelloWorld } from 'routes/HelloWorld'
 import { HelloWorldData } from 'routes/HelloWorldData'
+import { HelloWorldData3d } from 'routes/HelloWorldData3d'
 
 const routes = [
   {
@@ -69,6 +70,12 @@ const routes = [
     route: 'Hello World Data',
     component: HelloWorldData,
     description: 'Hello world genetic generator data from ~100000 iterations',
+  },
+  {
+    path: '/hello-world-data-3d',
+    route: 'Hello World Data 3d',
+    component: HelloWorldData3d,
+    description: 'Hello world genetic generator data from ~100000 iterations - IN 3D!',
   },
 ]
 
