@@ -14,6 +14,7 @@ export class HelloWorldData3d extends React.Component {
     yAxys: independentVars[0],
     zAxys: independentVars[0],
     color: dependentVars[1],
+    size: dependentVars[1],
     max: 0,
     min: 0,
   }
@@ -41,9 +42,9 @@ export class HelloWorldData3d extends React.Component {
   }
 
   updateCanvas() {
-    const { xAxys, yAxys, zAxys, color, data } = this.state
+    const { xAxys, yAxys, zAxys, color, size, data } = this.state
     const { setScale } = this
-    this.renderer.updateValues({ xAxys, yAxys, zAxys, color, data, setScale })
+    this.renderer.updateValues({ xAxys, yAxys, zAxys, color, size, data, setScale })
   }
 
   setValue = k => e => this.setState({ [k]: e.target.value }, this.updateCanvas)
@@ -51,7 +52,7 @@ export class HelloWorldData3d extends React.Component {
   setScale = key => val => this.setState({ [key]: val })
 
   render() {
-    const { xAxys, yAxys, zAxys, color, max, min } = this.state
+    const { xAxys, yAxys, zAxys, color, size, max, min } = this.state
     return (
       <div className="w-100 h-100 flex flex-column justify-center items-center overflow-scroll relative">
         <Input
@@ -62,6 +63,7 @@ export class HelloWorldData3d extends React.Component {
           yAxys={yAxys}
           zAxys={zAxys}
           color={color}
+          size={size}
         />
         <Scale
           max={max}
