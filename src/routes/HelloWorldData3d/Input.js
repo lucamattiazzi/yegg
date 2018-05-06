@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Input = ({ setValue, independentVars, dependentVars, xAxys, yAxys, color }) => {
+export const Input = ({ setValue, independentVars, dependentVars, xAxys, yAxys, zAxys, color }) => {
   return (
     <div className="absolute top-2 right-2 flex">
       <div className="flex flex-column items-center">
@@ -13,6 +13,12 @@ export const Input = ({ setValue, independentVars, dependentVars, xAxys, yAxys, 
         <span>Y axys</span>
         <select className="mv2" selected={yAxys} onChange={setValue('yAxys')}>
           { independentVars.map(cat => <option key={`yAxys-${cat}`} value={cat}>{cat}</option>) }
+        </select>
+      </div>
+      <div className="flex flex-column items-center">
+        <span>Z axys</span>
+        <select className="mv2" selected={zAxys} onChange={setValue('zAxys')}>
+          { independentVars.map(cat => <option key={`zAxys-${cat}`} value={cat}>{cat}</option>) }
         </select>
       </div>
       <div className="flex flex-column items-center">

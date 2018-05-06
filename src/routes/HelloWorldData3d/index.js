@@ -1,5 +1,6 @@
 import React from 'react'
-import { independentVars, dependentVars, drawer } from './lib'
+import * as THREE from 'three'
+import { independentVars, dependentVars, Drawer3d } from './lib'
 import { Input } from './Input'
 import { Scale } from './Scale'
 const { fetch } = window
@@ -11,6 +12,7 @@ export class HelloWorldData3d extends React.Component {
     data: [],
     xAxys: independentVars[0],
     yAxys: independentVars[0],
+    zAxys: independentVars[0],
     color: dependentVars[1],
     max: 0,
     min: 0,
@@ -24,43 +26,46 @@ export class HelloWorldData3d extends React.Component {
 
   renderContainer = div => {
     if (!div) return
-    this.canvas.width = div.offsetWidth * 1.6
-    this.canvas.height = div.offsetHeight * 1.2
-    this.setState({
-      width: div.offsetWidth,
-      height: div.offsetHeight,
-    })
+    const width = div.offsetWidth
+    const height = div.offsetHeight
+    const scene = new THREE.Scene()
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000)
+    const canvas = new THREE.WebGLRenderer({ alpha: true })
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1)
+    // directionalLight.position = [0, -1, 0]
+    scene.add(directionalLight)
+    canvas.setSize(width, height)
+    div.appendChild(canvas.domElement)
+    this.renderer = new Drawer3d(scene, camera, canvas, this.state)
   }
 
-  renderCanvas = canvas => {
-    if (!canvas) return
-    this.canvas = canvas
-    this.ctx = this.canvas.getContext('2d')
+  updateCanvas() {
+    const { xAxys, yAxys, zAxys, color, data } = this.state
+    this.renderer.updateValues({ xAxys, yAxys, zAxys, color, data })
   }
 
   setValue = k => e => this.setState({ [k]: e.target.value }, this.updateCanvas)
 
   setScale = key => val => this.setState({ [key]: val })
 
-  updateCanvas = () => drawer(this)
-
   render() {
-    const { xAxys, yAxys, color, max, min } = this.state
+    const { xAxys, yAxys, zAxys, color, max, min } = this.state
     return (
-      <div className="w-100 h-100 flex flex-column justify-center items-center overflow-scroll relative" ref={this.renderContainer}>
+      <div className="w-100 h-100 flex flex-column justify-center items-center overflow-scroll relative">
         <Input
           setValue={this.setValue}
           independentVars={independentVars}
           dependentVars={dependentVars}
           xAxys={xAxys}
           yAxys={yAxys}
+          zAxys={zAxys}
           color={color}
         />
         <Scale
           max={max}
           min={min}
         />
-        <canvas className="w-80 h-60" ref={this.renderCanvas} />
+        <div className="w-80 h-60" ref={this.renderContainer} />
       </div>
     )
   }

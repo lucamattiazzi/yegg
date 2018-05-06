@@ -1,4 +1,11 @@
 import { groupBy, meanBy, minBy, maxBy, sortBy, uniq } from 'lodash'
+import * as THREE from 'three'
+import TrackballControls from 'three-trackballcontrols'
+
+const { requestAnimationFrame } = window
+const STARTING_Z = 10
+const CAMERA_DEFAULT = [0, 0, STARTING_Z]
+const TARGET_DEFAULT = [0, 0, 0]
 
 export const independentVars = [
   'seedNumber',
@@ -12,7 +19,6 @@ export const dependentVars = [
   'mean',
   'stdev',
   'median',
-  'mode',
 ]
 
 const getStats = (grouped, color) => (
@@ -21,30 +27,39 @@ const getStats = (grouped, color) => (
   ))
 )
 
-export const drawer = ({ canvas, state, setScale }) => {
-  const { width, height } = canvas
-  const ctx = canvas.getContext('2d')
-  const { xAxys, yAxys, color, data } = state
-  ctx.clearRect(0, 0, width, height)
-  const grouped = groupBy(data, row => [row[xAxys], row[yAxys]])
-  const stats = getStats(grouped, color)
-  const xVals = sortBy(uniq(stats.map(({ key }) => key.split(',')[0])))
-  const yVals = sortBy(uniq(stats.map(({ key }) => key.split(',')[1])))
-  const colWidth = width / xVals.length
-  const colHeight = height / yVals.length
-  const { value: min } = minBy(stats, 'value')
-  const { value: max } = maxBy(stats, 'value')
-  const scale = v => (v - min) / (max - min)
-  stats.forEach(p => {
-    const [xVal, yVal] = p.key.split(',')
-    const xIdx = xVals.findIndex(v => v === xVal)
-    const yIdx = yVals.findIndex(v => v === yVal)
-    const x = colWidth * xIdx
-    const y = colHeight * yIdx
-    const val = scale(p.value)
-    ctx.fillStyle = `rgba(0, 0, 0, ${val})`
-    ctx.fillRect(x, y, colWidth, colHeight)
-  })
-  setScale('min')(min)
-  setScale('max')(max)
+export class Drawer3d {
+  constructor(scene, camera, canvas, { viewport, ...mapMode }) {
+    this.camera = camera
+    this.scene = scene
+    this.canvas = canvas
+    this.controls = new TrackballControls(this.camera, this.canvas.domElement)
+    this.controls.target.set(...TARGET_DEFAULT)
+    this.camera.position.set(...CAMERA_DEFAULT)
+    this.controls.rotateSpeed = 1.0
+    this.controls.zoomSpeed = 4
+    this.controls.panSpeed = 0.8
+    this.controls.noZoom = false
+    this.controls.noPan = false
+    this.controls.staticMoving = true
+    this.animate()
+  }
+
+  animate = () => {
+    requestAnimationFrame(this.animate)
+    this.controls.update()
+    this.canvas.render(this.scene, this.camera)
+  }
+
+  generateCube = position => {
+    const geometry = new THREE.BoxGeometry(1, 1, 1)
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 })
+    const cube = new THREE.Mesh(geometry, material)
+    cube.position.set(...position)
+    return cube
+  }
+
+  updateValues = () => {
+    const newCube = this.generateCube([10, 0, 0])
+    this.scene.add(newCube)
+  }
 }
