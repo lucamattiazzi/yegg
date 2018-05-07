@@ -35,7 +35,7 @@ const newSprite = val => {
   labelCanvas.width = CANVAS_SIZE
   labelCanvas.height = CANVAS_SIZE
   const labelCtx = labelCanvas.getContext('2d')
-  labelCtx.font = `${CANVAS_SIZE}px monospace`
+  labelCtx.font = `50px monospace`
   labelCtx.textAlign = 'center'
   labelCtx.textBaseline = 'middle'
   labelCtx.clearRect(0, 0, labelCanvas.width, labelCanvas.height)
