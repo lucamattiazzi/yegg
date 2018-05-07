@@ -1,10 +1,11 @@
-import { groupBy, meanBy, minBy, maxBy, sortBy, uniq } from 'lodash'
+import { groupBy, meanBy, minBy, maxBy, sortBy, uniq, round } from 'lodash'
 import * as THREE from 'three'
 import TrackballControls from 'three-trackballcontrols'
 
 const { requestAnimationFrame } = window
 const STARTING_Z = 10
 const CUBE_SIDE = 1.5
+const CANVAS_SIZE = 64
 const CUBE_VOLUM_MULT = (3 ** (1 / 3)) // the volume inside is three times the max cube size
 const CAMERA_DEFAULT = [0, 0, STARTING_Z]
 const TARGET_DEFAULT = [0, 0, 0]
@@ -29,6 +30,22 @@ const getStats = (grouped, color, size) => (
   ))
 )
 
+const newSprite = val => {
+  const labelCanvas = document.createElement('canvas')
+  labelCanvas.width = CANVAS_SIZE
+  labelCanvas.height = CANVAS_SIZE
+  const labelCtx = labelCanvas.getContext('2d')
+  labelCtx.font = `${CANVAS_SIZE}px monospace`
+  labelCtx.textAlign = 'center'
+  labelCtx.textBaseline = 'middle'
+  labelCtx.clearRect(0, 0, labelCanvas.width, labelCanvas.height)
+  labelCtx.fillText(val, labelCanvas.width / 2, labelCanvas.height / 2)
+  const map = new THREE.CanvasTexture(labelCanvas)
+  const labelMaterial = new THREE.SpriteMaterial({ map })
+  const sprite = new THREE.Sprite(labelMaterial)
+  return sprite
+}
+
 export class Drawer3d {
   constructor(scene, camera, canvas) {
     this.camera = camera
@@ -43,11 +60,6 @@ export class Drawer3d {
     this.controls.noZoom = false
     this.controls.noPan = false
     this.controls.staticMoving = true
-    this.labelCanvas = document.createElement('canvas')
-    this.labelCanvas.width = 200
-    this.labelCanvas.height = 200
-    this.labelCtx = this.labelCanvas.getContext('2d')
-    this.labelCtx.font = 'monospace 20px'
     this.animate()
   }
 
@@ -86,19 +98,30 @@ export class Drawer3d {
       const line = new THREE.Line(geometry, material)
       this.scene.add(line)
     })
-    xVals.forEach(xVal => {
-      this.labelCtx.clearRect(0, 0, this.labelCanvas.width, this.labelCanvas.height)
-      this.labelCtx.fillText(xVal, this.labelCanvas.width / 2, this.labelCanvas.height / 2)
-      console.log(xVal)
-      const map = new THREE.Texture(this.labelCanvas)
-      map.needsUpdate = false
-      const labelMaterial = new THREE.SpriteMaterial(
-        { map, color: 0xffffff, fog: true }
-      )
-      labelMaterial.position.set(0, 0, 0)
-      const sprite = new THREE.Sprite(labelMaterial)
+    xVals.forEach((val, idx) => {
+      const sprite = newSprite(round(val, 2))
+      sprite.position.set((1 + idx) * CUBE_SIDE * CUBE_VOLUM_MULT, -1, -1)
       this.scene.add(sprite)
     })
+    const xSprite = newSprite('X')
+    xSprite.position.set((2 + xVals.length) * CUBE_SIDE * CUBE_VOLUM_MULT, -1, -1)
+    this.scene.add(xSprite)
+    yVals.forEach((val, idx) => {
+      const sprite = newSprite(round(val, 2))
+      sprite.position.set(-1, (1 + idx) * CUBE_SIDE * CUBE_VOLUM_MULT, -1)
+      this.scene.add(sprite)
+    })
+    const ySprite = newSprite('Y')
+    ySprite.position.set(-1, (2 + xVals.length) * CUBE_SIDE * CUBE_VOLUM_MULT, -1)
+    this.scene.add(ySprite)
+    zVals.forEach((val, idx) => {
+      const sprite = newSprite(round(val, 2))
+      sprite.position.set(-1, -1, (1 + idx) * CUBE_SIDE * CUBE_VOLUM_MULT)
+      this.scene.add(sprite)
+    })
+    const zSprite = newSprite('Z')
+    zSprite.position.set(-1, -1, (2 + xVals.length) * CUBE_SIDE * CUBE_VOLUM_MULT)
+    this.scene.add(zSprite)
   }
 
   updateValues = ({ xAxys, yAxys, zAxys, color, data, setScale, size }) => {
