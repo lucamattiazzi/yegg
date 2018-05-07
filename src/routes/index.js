@@ -9,6 +9,7 @@ import { MusicRegression } from 'routes/MusicRegression'
 import { HelloWorld } from 'routes/HelloWorld'
 import { HelloWorldData } from 'routes/HelloWorldData'
 import { HelloWorldData3d } from 'routes/HelloWorldData3d'
+import { HelloWorldDataRegression } from 'routes/HelloWorldDataRegression'
 
 const routes = [
   {
@@ -76,6 +77,12 @@ const routes = [
     route: 'Hello World Data 3d',
     component: HelloWorldData3d,
     description: 'Hello world genetic generator data from ~100000 iterations - IN 3D!',
+  },
+  {
+    path: '/hello-world-data-regression',
+    route: 'Hello World Data Regression',
+    component: HelloWorldDataRegression,
+    description: 'Hello world genetic generator data from ~100000 iterations, multivariate polynomial regression!',
   },
 ]
 

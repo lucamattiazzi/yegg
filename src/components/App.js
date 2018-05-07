@@ -14,7 +14,7 @@ export default class App extends React.Component {
             {'Some stuff I\'m playing with.'}
           </div>
         </div>
-        <div className="w-80 flex flex-column pv3">
+        <div className="w-80 flex flex-column pv3 overflow-y-scroll">
           {
             routes.map(({ route, path, description }, idx) => (
               <div key={idx} className="f3 pv2">

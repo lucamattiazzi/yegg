@@ -17,7 +17,6 @@ with open('./genetic-hello-world-results.json', 'r') as input:
 
 independent_vars = [[val[var] for var in ind_vars] for val in data]
 
-
 for dep_var in dep_vars:
   curr_results = {}
   vals = [val[dep_var] for val in data]
