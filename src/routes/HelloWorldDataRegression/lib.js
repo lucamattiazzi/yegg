@@ -1,5 +1,4 @@
 import { mean, flattenDeep, max, min } from 'lodash'
-const MARGIN = 80
 
 export const independentVars = [
   'seedNumber',
@@ -43,7 +42,7 @@ const getValue = (coefficients, xCoeff, yCoeff) => {
   }
 }
 
-export const drawer = ({ canvas, state, setScale }) => {
+export const drawer = ({ canvas, state, setScale, setScore }) => {
   const { width, height } = canvas
   const ctx = canvas.getContext('2d')
   const { xAxys, yAxys, color, data } = state
@@ -82,4 +81,5 @@ export const drawer = ({ canvas, state, setScale }) => {
   }
   setScale('min')(minVal)
   setScale('max')(maxVal)
+  setScore(values.score)
 }

@@ -58,7 +58,7 @@ export class Dices extends React.Component {
           <input type="text" id="color" value={this.state.color} onChange={this.setValue('color')} />
           <input type="submit" onClick={this.addPlot} />
         </div>
-        <div ref={this.container} className="w-100 h-100">
+        <div ref={this.container} className="w-100 h-70">
           <canvas className="w-100 h-100" width={width} height={height} ref={this.canvasRendered} />
         </div>
         <div className="pa2 ba b--black pointer" onClick={this.runTest}>

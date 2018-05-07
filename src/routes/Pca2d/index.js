@@ -11,6 +11,7 @@ export class Pca2d extends React.Component {
   }
 
   renderContainer = div => {
+    if (!div) return
     this.setState({
       width: div.offsetWidth * 0.95,
       height: div.offsetHeight * 0.95,

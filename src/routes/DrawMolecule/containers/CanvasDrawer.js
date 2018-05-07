@@ -14,6 +14,7 @@ export class CanvasDrawer extends React.Component {
   state = { cursor: 'crosshair' }
 
   canvasRendered = canvas => {
+    if (!canvas) return
     const { state } = this.props
     const ctx = canvas.getContext('2d')
     canvas.height = canvas.offsetHeight

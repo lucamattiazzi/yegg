@@ -6,15 +6,11 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="w-100 h-100 min-h-100 flex flex-column items-center relative">
-        <div className="w-80 flex flex-column items-center justify-center pv5">
-          <div className="pa3 f1">
-            Yegg
-          </div>
-          <div className="pa3 f4">
-            {'Some stuff I\'m playing with.'}
-          </div>
+        <div className="w-80 flex flex-column items-center justify-center pt4">
+          <div className="pa3 f1">Yegg</div>
+          <div className="pa3 f4">{'Stuff i\'m learning'}</div>
         </div>
-        <div className="w-80 flex flex-column pv3 overflow-y-scroll">
+        <div className="w-80 flex flex-column pt4 h-60 overflow-y-scroll">
           {
             routes.map(({ route, path, description }, idx) => (
               <div key={idx} className="f3 pv2">

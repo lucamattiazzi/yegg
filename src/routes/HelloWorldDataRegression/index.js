@@ -14,6 +14,7 @@ export class HelloWorldDataRegression extends React.Component {
     color: dependentVars[1],
     max: 0,
     min: 0,
+    score: 0,
   }
 
   async componentWillMount() {
@@ -38,6 +39,8 @@ export class HelloWorldDataRegression extends React.Component {
     this.ctx = this.canvas.getContext('2d')
   }
 
+  setScore = v => this.setState({ score: v })
+
   setValue = k => e => this.setState({ [k]: e.target.value }, this.updateCanvas)
 
   setScale = key => val => this.setState({ [key]: val })
@@ -45,7 +48,7 @@ export class HelloWorldDataRegression extends React.Component {
   updateCanvas = () => drawer(this)
 
   render() {
-    const { xAxys, yAxys, color, max, min } = this.state
+    const { xAxys, yAxys, color, max, min, score } = this.state
     return (
       <div className="w-100 h-100 flex flex-column justify-center items-center overflow-scroll relative" ref={this.renderContainer}>
         <Input
@@ -55,10 +58,12 @@ export class HelloWorldDataRegression extends React.Component {
           xAxys={xAxys}
           yAxys={yAxys}
           color={color}
+          setScale={this.setScale}
         />
         <Scale
           max={max}
           min={min}
+          score={score}
         />
         <canvas className="w-80 h-60" ref={this.renderCanvas} />
       </div>

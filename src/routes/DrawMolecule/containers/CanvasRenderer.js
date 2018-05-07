@@ -7,6 +7,7 @@ import * as THREE from 'three'
 @observer
 export class CanvasRenderer extends React.Component {
   containerRendered = div => {
+    if (!div) return
     const { state } = this.props
     const width = div.offsetWidth
     const height = div.offsetHeight
