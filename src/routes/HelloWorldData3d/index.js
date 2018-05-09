@@ -20,7 +20,7 @@ export class HelloWorldData3d extends React.Component {
   }
 
   async componentWillMount() {
-    const response = await fetch('/genetic-hello-world-results.json')
+    const response = await fetch('/hello-world-results-160k.json')
     const data = await response.json()
     this.setState({ data }, this.updateCanvas)
   }

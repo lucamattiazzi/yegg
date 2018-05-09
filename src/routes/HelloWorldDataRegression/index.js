@@ -18,7 +18,7 @@ export class HelloWorldDataRegression extends React.Component {
   }
 
   async componentWillMount() {
-    const response = await fetch('/multi-poly-coefficients.json')
+    const response = await fetch('/hello-world-regression-160k.json')
     const data = await response.json()
     this.setState({ data }, this.updateCanvas)
   }

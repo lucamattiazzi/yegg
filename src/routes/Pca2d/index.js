@@ -14,7 +14,7 @@ export class Pca2d extends React.Component {
     if (!div) return
     this.setState({
       width: div.offsetWidth * 0.95,
-      height: div.offsetHeight * 0.95,
+      height: div.offsetHeight * 0.9,
     }, this.draw)
   }
 
@@ -24,14 +24,17 @@ export class Pca2d extends React.Component {
     const { width, height } = this.state
     const style = { width: width, height: height }
     return (
-      <div className="w-100 h-100 flex items-center justify-center relative" ref={this.renderContainer}>
-        <canvas
-          ref={this.renderCanvas}
-          className="bg-navy"
-          width={width * 2}
-          height={height * 2}
-          style={style}
-        />
+      <div className="w-100 h-100 flex flex-column items-center justify-center relative">
+        <div className="w-100 pv2 tc">Something?</div>
+        <div className="w-100 flex flex-auto items-center justify-center relative" ref={this.renderContainer}>
+          <canvas
+            ref={this.renderCanvas}
+            className="bg-navy"
+            width={width * 2}
+            height={height * 2}
+            style={style}
+          />
+        </div>
       </div>
     )
   }

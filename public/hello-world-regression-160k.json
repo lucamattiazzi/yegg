@@ -1,0 +1,966 @@
+{
+  "mean": {
+    "score": 0.9447889217875459,
+    "coefficients": [
+      {
+        "variable": [
+          "1"
+        ],
+        "coefficient": 0.0
+      },
+      {
+        "variable": [
+          "goalLength"
+        ],
+        "coefficient": -0.2284819609266749
+      },
+      {
+        "variable": [
+          "seedNumber"
+        ],
+        "coefficient": -0.07083507385159188
+      },
+      {
+        "variable": [
+          "survivalRate"
+        ],
+        "coefficient": 15.403628277661854
+      },
+      {
+        "variable": [
+          "mutationRate"
+        ],
+        "coefficient": -37.51490200529152
+      },
+      {
+        "variable": [
+          "goalLength^2"
+        ],
+        "coefficient": 0.016630327208277174
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber"
+        ],
+        "coefficient": -0.003860984555984161
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate"
+        ],
+        "coefficient": -0.3241535669548481
+      },
+      {
+        "variable": [
+          "goalLength",
+          "mutationRate"
+        ],
+        "coefficient": 2.1990678096687395
+      },
+      {
+        "variable": [
+          "seedNumber^2"
+        ],
+        "coefficient": 0.0011847937929628737
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate"
+        ],
+        "coefficient": -0.014551407697271784
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "mutationRate"
+        ],
+        "coefficient": 0.09714408633158467
+      },
+      {
+        "variable": [
+          "survivalRate^2"
+        ],
+        "coefficient": -53.62958570430959
+      },
+      {
+        "variable": [
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": 21.885803681435306
+      },
+      {
+        "variable": [
+          "mutationRate^2"
+        ],
+        "coefficient": 56.10119395345797
+      },
+      {
+        "variable": [
+          "goalLength^3"
+        ],
+        "coefficient": -0.00014642604017191707
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "seedNumber"
+        ],
+        "coefficient": 4.056544878363677e-06
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "survivalRate"
+        ],
+        "coefficient": -0.0017489567622711276
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "mutationRate"
+        ],
+        "coefficient": -0.007636057334382286
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber^2"
+        ],
+        "coefficient": 1.5693822027005656e-05
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber",
+          "survivalRate"
+        ],
+        "coefficient": -0.0001743838051812942
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber",
+          "mutationRate"
+        ],
+        "coefficient": 0.0023008733794487556
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate^2"
+        ],
+        "coefficient": 0.7043716810823976
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": -0.47701717309052705
+      },
+      {
+        "variable": [
+          "goalLength",
+          "mutationRate^2"
+        ],
+        "coefficient": -0.9900791543710792
+      },
+      {
+        "variable": [
+          "seedNumber^3"
+        ],
+        "coefficient": -5.474943637679459e-06
+      },
+      {
+        "variable": [
+          "seedNumber^2",
+          "survivalRate"
+        ],
+        "coefficient": 0.00016664224771855863
+      },
+      {
+        "variable": [
+          "seedNumber^2",
+          "mutationRate"
+        ],
+        "coefficient": -0.0006345285574505255
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate^2"
+        ],
+        "coefficient": -0.020511603054046798
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": 0.026300456939399926
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "mutationRate^2"
+        ],
+        "coefficient": -0.042220006669824936
+      },
+      {
+        "variable": [
+          "survivalRate^3"
+        ],
+        "coefficient": 42.595593067065906
+      },
+      {
+        "variable": [
+          "survivalRate^2",
+          "mutationRate"
+        ],
+        "coefficient": -22.02421842623823
+      },
+      {
+        "variable": [
+          "survivalRate",
+          "mutationRate^2"
+        ],
+        "coefficient": 1.3502228568691366
+      },
+      {
+        "variable": [
+          "mutationRate^3"
+        ],
+        "coefficient": -28.53269661353632
+      }
+    ]
+  },
+  "goalDistance": {
+    "score": 0.922298253961741,
+    "coefficients": [
+      {
+        "variable": [
+          "1"
+        ],
+        "coefficient": 0.0
+      },
+      {
+        "variable": [
+          "goalLength"
+        ],
+        "coefficient": -0.43387588212954753
+      },
+      {
+        "variable": [
+          "seedNumber"
+        ],
+        "coefficient": -0.07112550733811027
+      },
+      {
+        "variable": [
+          "survivalRate"
+        ],
+        "coefficient": 9.151343160973282
+      },
+      {
+        "variable": [
+          "mutationRate"
+        ],
+        "coefficient": -49.22531442827998
+      },
+      {
+        "variable": [
+          "goalLength^2"
+        ],
+        "coefficient": 0.024265917273279283
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber"
+        ],
+        "coefficient": -0.005672174671861286
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate"
+        ],
+        "coefficient": -0.07987644144447636
+      },
+      {
+        "variable": [
+          "goalLength",
+          "mutationRate"
+        ],
+        "coefficient": 1.7673296895102213
+      },
+      {
+        "variable": [
+          "seedNumber^2"
+        ],
+        "coefficient": 0.00150703416786181
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate"
+        ],
+        "coefficient": -0.007957798435037827
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "mutationRate"
+        ],
+        "coefficient": 0.032104718236410236
+      },
+      {
+        "variable": [
+          "survivalRate^2"
+        ],
+        "coefficient": -43.79840871109294
+      },
+      {
+        "variable": [
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": 34.79301633455179
+      },
+      {
+        "variable": [
+          "mutationRate^2"
+        ],
+        "coefficient": 70.03147422818168
+      },
+      {
+        "variable": [
+          "goalLength^3"
+        ],
+        "coefficient": -0.0002491259002715364
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "seedNumber"
+        ],
+        "coefficient": 1.782523636265792e-05
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "survivalRate"
+        ],
+        "coefficient": -0.005404546720333098
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "mutationRate"
+        ],
+        "coefficient": -0.00537167068267262
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber^2"
+        ],
+        "coefficient": 2.062470770305619e-05
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber",
+          "survivalRate"
+        ],
+        "coefficient": 0.0001544232941836346
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber",
+          "mutationRate"
+        ],
+        "coefficient": 0.002634978880325269
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate^2"
+        ],
+        "coefficient": 0.6598891408415188
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": -0.4891114613992881
+      },
+      {
+        "variable": [
+          "goalLength",
+          "mutationRate^2"
+        ],
+        "coefficient": -0.6104051010911873
+      },
+      {
+        "variable": [
+          "seedNumber^3"
+        ],
+        "coefficient": -7.259492216963224e-06
+      },
+      {
+        "variable": [
+          "seedNumber^2",
+          "survivalRate"
+        ],
+        "coefficient": 0.00013624139714076006
+      },
+      {
+        "variable": [
+          "seedNumber^2",
+          "mutationRate"
+        ],
+        "coefficient": -0.0005525232469922386
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate^2"
+        ],
+        "coefficient": -0.03182262916390563
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": 0.03353600451345088
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "mutationRate^2"
+        ],
+        "coefficient": -0.00417796210134733
+      },
+      {
+        "variable": [
+          "survivalRate^3"
+        ],
+        "coefficient": 35.73220233357415
+      },
+      {
+        "variable": [
+          "survivalRate^2",
+          "mutationRate"
+        ],
+        "coefficient": -21.379894615624657
+      },
+      {
+        "variable": [
+          "survivalRate",
+          "mutationRate^2"
+        ],
+        "coefficient": -9.732159898141212
+      },
+      {
+        "variable": [
+          "mutationRate^3"
+        ],
+        "coefficient": -33.51887642610903
+      }
+    ]
+  },
+  "stdev": {
+    "score": 0.8947453992910493,
+    "coefficients": [
+      {
+        "variable": [
+          "1"
+        ],
+        "coefficient": 0.0
+      },
+      {
+        "variable": [
+          "goalLength"
+        ],
+        "coefficient": 0.12402175876728228
+      },
+      {
+        "variable": [
+          "seedNumber"
+        ],
+        "coefficient": 0.009139403316885628
+      },
+      {
+        "variable": [
+          "survivalRate"
+        ],
+        "coefficient": 3.3948335878291145
+      },
+      {
+        "variable": [
+          "mutationRate"
+        ],
+        "coefficient": 10.325540021275502
+      },
+      {
+        "variable": [
+          "goalLength^2"
+        ],
+        "coefficient": -0.0049291789503910916
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber"
+        ],
+        "coefficient": 0.0005343662101212083
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate"
+        ],
+        "coefficient": 0.032261597365277055
+      },
+      {
+        "variable": [
+          "goalLength",
+          "mutationRate"
+        ],
+        "coefficient": 0.13052429425210565
+      },
+      {
+        "variable": [
+          "seedNumber^2"
+        ],
+        "coefficient": -0.0001971090909908027
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate"
+        ],
+        "coefficient": -0.0029145238082591667
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "mutationRate"
+        ],
+        "coefficient": 0.009254156794558438
+      },
+      {
+        "variable": [
+          "survivalRate^2"
+        ],
+        "coefficient": -4.3746473349127495
+      },
+      {
+        "variable": [
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": -4.4402222151801825
+      },
+      {
+        "variable": [
+          "mutationRate^2"
+        ],
+        "coefficient": -15.349586994122937
+      },
+      {
+        "variable": [
+          "goalLength^3"
+        ],
+        "coefficient": 6.126859861939449e-05
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "seedNumber"
+        ],
+        "coefficient": -1.4677702509277959e-06
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "survivalRate"
+        ],
+        "coefficient": 0.0015336551016116948
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "mutationRate"
+        ],
+        "coefficient": -0.00030068358136110807
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber^2"
+        ],
+        "coefficient": -1.8424830006790255e-06
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber",
+          "survivalRate"
+        ],
+        "coefficient": -0.00013810186208386703
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber",
+          "mutationRate"
+        ],
+        "coefficient": -0.0001662852886299645
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate^2"
+        ],
+        "coefficient": -0.10936818625617321
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": 0.013521121581968939
+      },
+      {
+        "variable": [
+          "goalLength",
+          "mutationRate^2"
+        ],
+        "coefficient": -0.14340413816283065
+      },
+      {
+        "variable": [
+          "seedNumber^3"
+        ],
+        "coefficient": 8.999450441534856e-07
+      },
+      {
+        "variable": [
+          "seedNumber^2",
+          "survivalRate"
+        ],
+        "coefficient": 3.445547024467661e-05
+      },
+      {
+        "variable": [
+          "seedNumber^2",
+          "mutationRate"
+        ],
+        "coefficient": 2.1755894687202834e-05
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate^2"
+        ],
+        "coefficient": 0.00039420277774667584
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": -0.0013468085384235199
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "mutationRate^2"
+        ],
+        "coefficient": -0.009381751173429717
+      },
+      {
+        "variable": [
+          "survivalRate^3"
+        ],
+        "coefficient": 2.274033707871167
+      },
+      {
+        "variable": [
+          "survivalRate^2",
+          "mutationRate"
+        ],
+        "coefficient": -1.6623225064051965
+      },
+      {
+        "variable": [
+          "survivalRate",
+          "mutationRate^2"
+        ],
+        "coefficient": 5.4804768889943976
+      },
+      {
+        "variable": [
+          "mutationRate^3"
+        ],
+        "coefficient": 6.483387005918688
+      }
+    ]
+  },
+  "median": {
+    "score": 0.9458646313228114,
+    "coefficients": [
+      {
+        "variable": [
+          "1"
+        ],
+        "coefficient": 0.0
+      },
+      {
+        "variable": [
+          "goalLength"
+        ],
+        "coefficient": -0.16405659959462124
+      },
+      {
+        "variable": [
+          "seedNumber"
+        ],
+        "coefficient": -0.07275718651105734
+      },
+      {
+        "variable": [
+          "survivalRate"
+        ],
+        "coefficient": 22.652462137621573
+      },
+      {
+        "variable": [
+          "mutationRate"
+        ],
+        "coefficient": -37.42322469457943
+      },
+      {
+        "variable": [
+          "goalLength^2"
+        ],
+        "coefficient": 0.015159565672879696
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber"
+        ],
+        "coefficient": -0.003792968656875992
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate"
+        ],
+        "coefficient": -0.5418694538208397
+      },
+      {
+        "variable": [
+          "goalLength",
+          "mutationRate"
+        ],
+        "coefficient": 2.231444429080107
+      },
+      {
+        "variable": [
+          "seedNumber^2"
+        ],
+        "coefficient": 0.001224059383635627
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate"
+        ],
+        "coefficient": -0.021751286127158875
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "mutationRate"
+        ],
+        "coefficient": 0.09999500346562622
+      },
+      {
+        "variable": [
+          "survivalRate^2"
+        ],
+        "coefficient": -68.7489627353487
+      },
+      {
+        "variable": [
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": 16.303670399982494
+      },
+      {
+        "variable": [
+          "mutationRate^2"
+        ],
+        "coefficient": 59.64631266633475
+      },
+      {
+        "variable": [
+          "goalLength^3"
+        ],
+        "coefficient": -0.00012038076619652614
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "seedNumber"
+        ],
+        "coefficient": 3.551942056537888e-06
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "survivalRate"
+        ],
+        "coefficient": -0.00038282032642731473
+      },
+      {
+        "variable": [
+          "goalLength^2",
+          "mutationRate"
+        ],
+        "coefficient": -0.00801118137071219
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber^2"
+        ],
+        "coefficient": 1.5460626962631325e-05
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber",
+          "survivalRate"
+        ],
+        "coefficient": -0.00023010928682256314
+      },
+      {
+        "variable": [
+          "goalLength",
+          "seedNumber",
+          "mutationRate"
+        ],
+        "coefficient": 0.002320319563346369
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate^2"
+        ],
+        "coefficient": 0.8327153813265052
+      },
+      {
+        "variable": [
+          "goalLength",
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": -0.46087234164565255
+      },
+      {
+        "variable": [
+          "goalLength",
+          "mutationRate^2"
+        ],
+        "coefficient": -1.0183541072790723
+      },
+      {
+        "variable": [
+          "seedNumber^3"
+        ],
+        "coefficient": -5.670931280689014e-06
+      },
+      {
+        "variable": [
+          "seedNumber^2",
+          "survivalRate"
+        ],
+        "coefficient": 0.0001826361538751596
+      },
+      {
+        "variable": [
+          "seedNumber^2",
+          "mutationRate"
+        ],
+        "coefficient": -0.0006462705859535637
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate^2"
+        ],
+        "coefficient": -0.014824138970969958
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "survivalRate",
+          "mutationRate"
+        ],
+        "coefficient": 0.02556957397272769
+      },
+      {
+        "variable": [
+          "seedNumber",
+          "mutationRate^2"
+        ],
+        "coefficient": -0.04316206359364818
+      },
+      {
+        "variable": [
+          "survivalRate^3"
+        ],
+        "coefficient": 52.81540591990976
+      },
+      {
+        "variable": [
+          "survivalRate^2",
+          "mutationRate"
+        ],
+        "coefficient": -20.511687831612782
+      },
+      {
+        "variable": [
+          "survivalRate",
+          "mutationRate^2"
+        ],
+        "coefficient": 3.802755329932289
+      },
+      {
+        "variable": [
+          "mutationRate^3"
+        ],
+        "coefficient": -31.062938833466024
+      }
+    ]
+  }
+}

@@ -131,9 +131,9 @@ export class Drawer3d {
     const grouped = groupBy(data, row => [row[xAxys], row[yAxys], row[zAxys]])
     const stats = getStats(grouped, color, size)
     console.log(stats)
-    const xVals = sortBy(uniq(stats.map(({ key }) => key.split(',')[0])))
-    const yVals = sortBy(uniq(stats.map(({ key }) => key.split(',')[1])))
-    const zVals = sortBy(uniq(stats.map(({ key }) => key.split(',')[2])))
+    const xVals = sortBy(uniq(stats.map(({ key }) => Number(key.split(',')[0]))))
+    const yVals = sortBy(uniq(stats.map(({ key }) => Number(key.split(',')[1]))))
+    const zVals = sortBy(uniq(stats.map(({ key }) => Number(key.split(',')[2]))))
     this.drawAllAxys({ xVals, yVals, zVals })
     const colX = CUBE_SIDE * CUBE_VOLUM_MULT
     const colY = CUBE_SIDE * CUBE_VOLUM_MULT
@@ -146,9 +146,9 @@ export class Drawer3d {
     const scaleSize = v => (v - minSize) / (maxSize - minSize)
     stats.forEach(p => {
       const [xVal, yVal, zVal] = p.key.split(',')
-      const xIdx = xVals.findIndex(v => v === xVal)
-      const yIdx = yVals.findIndex(v => v === yVal)
-      const zIdx = zVals.findIndex(v => v === zVal)
+      const xIdx = xVals.findIndex(v => v === Number(xVal))
+      const yIdx = yVals.findIndex(v => v === Number(yVal))
+      const zIdx = zVals.findIndex(v => v === Number(zVal))
       const x = colX * (xIdx + 1)
       const y = colY * (yIdx + 1)
       const z = colZ * (zIdx + 1)

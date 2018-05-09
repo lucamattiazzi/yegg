@@ -28,13 +28,13 @@ export const drawer = ({ canvas, state, setScale }) => {
   const ctx = canvas.getContext('2d')
   const { xAxys, yAxys, color, data } = state
   ctx.clearRect(0, 0, width, height)
-  ctx.font = '30px monospace'
+  ctx.font = '20px monospace'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
   const grouped = groupBy(data, row => [row[xAxys], row[yAxys]])
   const stats = getStats(grouped, color)
-  const xVals = sortBy(uniq(stats.map(({ key }) => key.split(',')[0])))
-  const yVals = sortBy(uniq(stats.map(({ key }) => key.split(',')[1])))
+  const xVals = sortBy(uniq(stats.map(({ key }) => Number(key.split(',')[0]))))
+  const yVals = sortBy(uniq(stats.map(({ key }) => Number(key.split(',')[1]))))
   const colWidth = availableWidth / xVals.length
   const colHeight = availableHeight / yVals.length
   const { value: min } = minBy(stats, 'value')
@@ -42,8 +42,8 @@ export const drawer = ({ canvas, state, setScale }) => {
   const scale = v => (v - min) / (max - min)
   stats.forEach(p => {
     const [xVal, yVal] = p.key.split(',')
-    const xIdx = xVals.findIndex(v => v === xVal)
-    const yIdx = yVals.findIndex(v => v === yVal)
+    const xIdx = xVals.findIndex(v => v === Number(xVal))
+    const yIdx = yVals.findIndex(v => v === Number(yVal))
     const x = MARGIN + colWidth * xIdx
     const y = height - colHeight * (yIdx + 1) - MARGIN
     const val = scale(p.value)

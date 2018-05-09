@@ -12,7 +12,7 @@ def replace_var(coeff):
   coeffs = coeff.replace("x0", ind_vars[0]).replace("x1", ind_vars[1]).replace("x2", ind_vars[2]).replace("x3", ind_vars[3])
   return coeffs.split(" ")
 
-with open('./genetic-hello-world-results.json', 'r') as input:
+with open('./hello-world-results-160k.json', 'r') as input:
   data = json.load(input)
 
 independent_vars = [[val[var] for var in ind_vars] for val in data]

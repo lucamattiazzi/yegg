@@ -1,7 +1,7 @@
 // import { Dices } from 'routes/Dices'
 import { RandomWalk } from 'routes/RandomWalk'
 import { DrawMolecule } from 'routes/DrawMolecule'
-// import { Pca2d } from 'routes/Pca2d'
+import { Pca2d } from 'routes/Pca2d'
 import { Election2d } from 'routes/Election2d'
 import { Election3d } from 'routes/Election3d'
 // import { CutMap } from 'routes/CutMap'
@@ -44,15 +44,15 @@ const routes = [
       'Those molecules can be seen in 3d in the right side of the screen.',
     ],
   },
-  // {
-  //   path: '/pca2d',
-  //   route: 'PCA 2d',
-  //   component: Pca2d,
-  //   description: 'Trying to grok PCA.',
-  //   routeInfo: [
-  //     'Almost useless, hopefully when over will help explain how PCA works.',
-  //   ],
-  // },
+  {
+    path: '/pca2d',
+    route: 'PCA 2d',
+    component: Pca2d,
+    description: 'Trying to grok PCA.',
+    routeInfo: [
+      'Almost useless, hopefully when over will help explain how PCA works.',
+    ],
+  },
   {
     path: '/election-2d',
     route: 'Election PCA2d',
