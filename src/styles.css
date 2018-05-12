@@ -14,3 +14,4 @@ html,body,#root {
 .h-90 { height: 90%; }
 .monospace { font-family: monospace; }
 .pointer-events-none { pointer-events: none; }
+.break-word { word-wrap: break-word }
