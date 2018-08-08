@@ -1,29 +1,14 @@
-// import { Dices } from 'routes/Dices'
 import { RandomWalk } from 'routes/RandomWalk'
-import { DrawMolecule } from 'routes/DrawMolecule'
-// import { Pca2d } from 'routes/Pca2d'
 import { Election2d } from 'routes/Election2d'
 import { Election3d } from 'routes/Election3d'
-// import { CutMap } from 'routes/CutMap'
 import { MusicRegression } from 'routes/MusicRegression'
 import { HelloWorld } from 'routes/HelloWorld'
 import { HelloWorldData } from 'routes/HelloWorldData'
 import { HelloWorldData3d } from 'routes/HelloWorldData3d'
 import { HelloWorldDataRegression } from 'routes/HelloWorldDataRegression'
-import { TenPrint } from 'routes/TenPrint'
+import { LogisticMap } from 'routes/LogisticMap'
 
 const routes = [
-  // {
-  //   path: '/dices',
-  //   route: 'Dices',
-  //   component: Dices,
-  //   description: 'n-faced dice throw error correlation on face number.',
-  //   routeInfo: [
-  //     'In this the simulation creates several throws of n-faced dice.',
-  //     'The goal is to find how many throws are diverging from the perfect even result, and if the number of sides of the dices is relevant.',
-  //     'Therefore, dices with 2-200 sides are thrown in 3 series of 500, 1000 and 10000 trials.',
-  //   ],
-  // },
   {
     path: '/random-walk',
     route: 'Multidimensional random walk',
@@ -35,25 +20,6 @@ const routes = [
       'Also, some other statistical values are calculated.',
     ],
   },
-  {
-    path: '/draw-molecule',
-    route: 'Molecule Drawing',
-    component: DrawMolecule,
-    description: 'Draw molecules with bonds and see them in 3d. Drag atoms or write their symbol (and wait quite a lot :/)',
-    routeInfo: [
-      'Here it\'s possible to draw atoms and bonds following basic chemical rules to create small molecules.',
-      'Those molecules can be seen in 3d in the right side of the screen.',
-    ],
-  },
-  // {
-  //   path: '/pca2d',
-  //   route: 'PCA 2d',
-  //   component: Pca2d,
-  //   description: 'Trying to grok PCA.',
-  //   routeInfo: [
-  //     'Almost useless, hopefully when over will help explain how PCA works.',
-  //   ],
-  // },
   {
     path: '/election-2d',
     route: 'Election PCA2d',
@@ -74,15 +40,6 @@ const routes = [
       'On click, cities are plotted on a 3d scatterplot using the 3 Principal components.',
     ],
   },
-  // {
-  //   path: '/cut-map',
-  //   route: 'Cut Map',
-  //   component: CutMap,
-  //   description: 'Trying to grok how a map is cut in some projections.',
-  //   routeInfo: [
-  //     'Useless, and will probably stay this way, should have helped me understand how some projections cuts the world map.',
-  //   ],
-  // },
   {
     path: '/music-regression',
     route: 'Music Regression',
@@ -136,12 +93,12 @@ const routes = [
     ],
   },
   {
-    path: '/ten-print',
-    route: '10PRINT',
-    component: TenPrint,
-    description: 'Ten print',
+    path: '/logistic-map',
+    route: 'Logistic Map',
+    component: LogisticMap,
+    description: 'A Logistic Map evolution visualization',
     routeInfo: [
-      'No info yet!'
+      '',
     ],
   },
 ]

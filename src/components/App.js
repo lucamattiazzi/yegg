@@ -25,9 +25,6 @@ export default class App extends React.Component {
             <a href="https://github.com/yeasteregg" target="_blank" rel="noopener noreferrer">
               <img src="/github.png" width="16" height="16" />
             </a>
-            {/* <a href="https://www.linkedin.com/in/mattiazziluca/" target="_blank" rel="noopener noreferrer">
-              <img src="/linkedin.png" width="16" height="16" />
-            </a> */}
           </div>
           Luca Mattiazzi
         </div>
