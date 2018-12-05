@@ -22,6 +22,7 @@
     "mathjs": "^4.0.1",
     "mobx": "^4.1.0",
     "mobx-react": "^5.0.0",
+    "p-map": "^2.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-map-gl": "^3.2.5",

@@ -7,6 +7,7 @@ import { HelloWorldData } from 'routes/HelloWorldData'
 import { HelloWorldData3d } from 'routes/HelloWorldData3d'
 import { HelloWorldDataRegression } from 'routes/HelloWorldDataRegression'
 import { LogisticMap } from 'routes/LogisticMap'
+import { LookAroundYou } from 'routes/LookAroundYou'
 
 const routes = [
   {
@@ -24,7 +25,8 @@ const routes = [
     path: '/election-2d',
     route: 'Election PCA2d',
     component: Election2d,
-    description: 'Election data plotted from n-dimensionality(where n is party number) to 2. Color represents distance from total.',
+    description:
+      'Election data plotted from n-dimensionality(where n is party number) to 2. Color represents distance from total.',
     routeInfo: [
       'Euclidean distance between every major city in Italy and total italian results during an election (camera 1979?)',
       'On click, cities are plotted on a 2d scatterplot using the 2 Principal components.',
@@ -34,7 +36,8 @@ const routes = [
     path: '/election-3d',
     route: 'Election PCA3d',
     component: Election3d,
-    description: 'Election data plotted from n-dimensionality(where n is party number) to 3. Color represents distance from total.',
+    description:
+      'Election data plotted from n-dimensionality(where n is party number) to 3. Color represents distance from total.',
     routeInfo: [
       'Euclidean distance between every major city in Italy and total italian results during an election (camera 1979?)',
       'On click, cities are plotted on a 3d scatterplot using the 3 Principal components.',
@@ -45,9 +48,7 @@ const routes = [
     route: 'Music Regression',
     component: MusicRegression,
     description: 'Using regression to play notes.',
-    routeInfo: [
-      'Creates a simple polynomial regression from the notes added and plays it.',
-    ],
+    routeInfo: ['Creates a simple polynomial regression from the notes added and plays it.'],
   },
   {
     path: '/hello-world',
@@ -86,7 +87,8 @@ const routes = [
     path: '/hello-world-data-regression',
     route: 'Hello World Data Regression',
     component: HelloWorldDataRegression,
-    description: 'Hello world genetic generator data from ~10000 iterations, multivariate polynomial regression!',
+    description:
+      'Hello world genetic generator data from ~10000 iterations, multivariate polynomial regression!',
     routeInfo: [
       'A multivariate polynomial regression(degree = 3) is run over the data from hello world to create a model that can predict each new simulation.',
       'The predicted value is shown in a much more detailed heatmap, less precise.',
@@ -97,9 +99,14 @@ const routes = [
     route: 'Logistic Map',
     component: LogisticMap,
     description: 'A Logistic Map evolution visualization',
-    routeInfo: [
-      '',
-    ],
+    routeInfo: [''],
+  },
+  {
+    path: '/look-around-you',
+    route: 'Look Around You',
+    component: LookAroundYou,
+    description: 'Look at what your friends are doing in your LAN!',
+    routeInfo: ['Looks in the local network if any host is serving anything on `0.0.0.0:8000`!'],
   },
 ]
 
