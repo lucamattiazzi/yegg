@@ -7,7 +7,7 @@ import { HelloWorldData } from 'routes/HelloWorldData'
 import { HelloWorldData3d } from 'routes/HelloWorldData3d'
 import { HelloWorldDataRegression } from 'routes/HelloWorldDataRegression'
 import { LogisticMap } from 'routes/LogisticMap'
-import { LookAroundYou } from 'routes/LookAroundYou'
+// import { LookAroundYou } from 'routes/LookAroundYou'
 
 const routes = [
   {
@@ -102,11 +102,13 @@ const routes = [
     routeInfo: [''],
   },
   {
-    path: '/look-around-you',
+    path: 'http://lookaroundyou.grokked.it',
     route: 'Look Around You',
-    component: LookAroundYou,
-    description: 'Look at what your friends are doing in your LAN!',
-    routeInfo: ['Looks in the local network if any host is serving anything on `0.0.0.0:8000`!'],
+    external: true,
+    // component: LookAroundYou,
+    description:
+      'Look at what your friends are doing in your LAN (separate domain since it needs http)',
+    // routeInfo: ['Looks in the local network if any host is serving anything on `0.0.0.0:8000`!'],
   },
 ]
 
