@@ -23,7 +23,7 @@ export default class App extends React.Component {
     return (
       <div className="w-100 h-100 min-h-100 flex flex-column items-center relative">
         <div className="w-80 flex flex-column items-center justify-center pt4">
-          <div className="pa3 f1">Yegg</div>
+          <div className="pa3 f1">Grokked it!</div>
           <div className="pa3 f4">{"Stuff i'm learning"}</div>
         </div>
         <div className="w-80 flex flex-column pt4 h-80 overflow-y-scroll">
