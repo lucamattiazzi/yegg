@@ -16,7 +16,7 @@ export class HelloWorldData extends React.Component {
     min: 0,
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const response = await fetch('/hello-world-results-160k.json')
     const data = await response.json()
     this.setState({ data }, this.updateCanvas)
@@ -47,7 +47,10 @@ export class HelloWorldData extends React.Component {
   render() {
     const { xAxys, yAxys, color, max, min } = this.state
     return (
-      <div className="w-100 h-100 flex flex-column justify-center items-center overflow-scroll relative" ref={this.renderContainer}>
+      <div
+        className="w-100 h-100 flex flex-column justify-center items-center overflow-scroll relative"
+        ref={this.renderContainer}
+      >
         <Input
           setValue={this.setValue}
           independentVars={independentVars}
@@ -56,10 +59,7 @@ export class HelloWorldData extends React.Component {
           yAxys={yAxys}
           color={color}
         />
-        <Scale
-          max={max}
-          min={min}
-        />
+        <Scale max={max} min={min} />
         <canvas className="w-80 h-60" ref={this.renderCanvas} />
       </div>
     )

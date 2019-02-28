@@ -19,7 +19,7 @@ export class HelloWorldData3d extends React.Component {
     min: 0,
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const response = await fetch('/hello-world-results-160k.json')
     const data = await response.json()
     this.setState({ data }, this.updateCanvas)
@@ -65,10 +65,7 @@ export class HelloWorldData3d extends React.Component {
           color={color}
           size={size}
         />
-        <Scale
-          max={max}
-          min={min}
-        />
+        <Scale max={max} min={min} />
         <div className="w-80 h-60" ref={this.renderContainer} />
       </div>
     )

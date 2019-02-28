@@ -5,7 +5,7 @@ import { routes } from 'routes'
 export default class App extends React.Component {
   renderRoute = ({ route, path, description, external }, idx) => {
     const link = external ? (
-      <a href={path} target="_blank">
+      <a href={path} target="_blank" rel="noopener noreferrer">
         {route}
       </a>
     ) : (

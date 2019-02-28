@@ -17,7 +17,7 @@ export class HelloWorldDataRegression extends React.Component {
     score: 0,
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const response = await fetch('/hello-world-regression-160k.json')
     const data = await response.json()
     this.setState({ data }, this.updateCanvas)
@@ -50,7 +50,10 @@ export class HelloWorldDataRegression extends React.Component {
   render() {
     const { xAxys, yAxys, color, max, min, score } = this.state
     return (
-      <div className="w-100 h-100 flex flex-column justify-center items-center overflow-scroll relative" ref={this.renderContainer}>
+      <div
+        className="w-100 h-100 flex flex-column justify-center items-center overflow-scroll relative"
+        ref={this.renderContainer}
+      >
         <Input
           setValue={this.setValue}
           independentVars={independentVars}
@@ -60,11 +63,7 @@ export class HelloWorldDataRegression extends React.Component {
           color={color}
           setScale={this.setScale}
         />
-        <Scale
-          max={max}
-          min={min}
-          score={score}
-        />
+        <Scale max={max} min={min} score={score} />
         <canvas className="w-80 h-60" ref={this.renderCanvas} />
       </div>
     )
